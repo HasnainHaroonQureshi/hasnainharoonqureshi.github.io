@@ -643,81 +643,30 @@ section { padding: 7rem 2rem; }
 }
 
 /* Crack diagram */
+/* FYP RESULT IMAGE */
 .fyp-visual {
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--bg3);
   border-left: 1px solid var(--border);
-  padding: 2rem;
+  padding: 1.5rem;
 }
-.crack-diagram {
-  position: relative;
-  width: 200px;
-  height: 200px;
+
+.fyp-result-img {
+  width: 100%;
+  max-width: 340px;
+  border-radius: 14px;
+  border: 1px solid rgba(240,165,0,0.2);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition);
 }
-.cd-layer {
-  position: absolute;
-  border-radius: 8px;
-}
-.cd-l1 {
-  inset: 0;
-  background: linear-gradient(145deg, #1c2230, #141922);
-  border: 1px solid rgba(255,255,255,0.06);
-}
-.cd-l2 {
-  inset: 10px;
-  background: linear-gradient(145deg, #18202c, #121820);
-  border: 1px solid rgba(255,255,255,0.04);
-}
-.cd-crack {
-  position: absolute;
-  top: 20%;
-  left: 30%;
-  width: 3px;
-  height: 65%;
-  background: rgba(240,165,0,0.7);
-  transform: rotate(-8deg) skewY(5deg);
-  border-radius: 1px;
-  box-shadow: 0 0 12px rgba(240,165,0,0.4),
-              2px 0 0 rgba(240,165,0,0.15),
-              -1px 3px 0 rgba(240,165,0,0.1);
-}
-.cd-crack::after {
-  content: '';
-  position: absolute;
-  top: 40%;
-  left: 0;
-  width: 2px;
-  height: 40%;
-  background: rgba(240,165,0,0.4);
-  transform: rotate(30deg) translateX(4px);
-}
-.cd-bbox {
-  position: absolute;
-  top: 15%;
-  left: 22%;
-  width: 55%;
-  height: 70%;
-  border: 1.5px solid var(--accent);
-  border-radius: 4px;
-  animation: bboxPulse 3s ease-in-out infinite;
-}
-@keyframes bboxPulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; box-shadow: 0 0 10px rgba(240,165,0,0.25); }
-}
-.cd-label {
-  position: absolute;
-  top: 10%;
-  left: 20%;
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  color: var(--accent);
-  background: rgba(10,12,16,0.85);
-  padding: 2px 6px;
-  border-radius: 3px;
-  letter-spacing: 0.05em;
+
+.fyp-result-img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.45);
 }
 
 /* Project Grid */
