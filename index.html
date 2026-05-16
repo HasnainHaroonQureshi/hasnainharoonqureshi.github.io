@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hasnain Haroon – Civil & Structural Engineer and AI Researcher specializing in deep learning-based structural health monitoring, crack detection, and computer vision." />
+  <meta name="keywords" content="Hasnain Haroon, Civil Engineer, Structural Engineer, AI, Computer Vision, YOLOv11, Crack Detection, COMSATS, Portfolio" />
+  <meta name="author" content="Hasnain Haroon" />
+  <meta property="og:title" content="Hasnain Haroon | Structural Engineer & AI Researcher" />
+  <meta property="og:description" content="Portfolio of Hasnain Haroon – bridging structural engineering with artificial intelligence." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hasnainharoonqureshi.github.io/" />
+  <title>Hasnain Haroon | Structural Engineer & AI Researcher</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── CURSOR ── -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- ── NAV ── -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <span class="logo-bracket">&lt;</span>HH<span class="logo-bracket">/&gt;</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero" class="nav-link">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#education" class="nav-link">Education</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#experience" class="nav-link">Experience</a></li>
+      <li><a href="#certifications" class="nav-link">Certifications</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="Hasnain_Haroon_CV.pdf" download class="btn-resume" aria-label="Download CV">
+        <i class="fas fa-download"></i> Resume
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Available for Internships & Research Opportunities
+      </div>
+
+      <h1 class="hero-name">
+        <span class="name-line reveal-up" style="--d:0.1s">Hasnain</span>
+        <span class="name-line name-accent reveal-up" style="--d:0.25s">Haroon</span>
+      </h1>
+
+      <div class="hero-tagline reveal-up" style="--d:0.4s">
+        <span class="tagline-word">Structural Engineering</span>
+        <span class="tagline-sep">✕</span>
+        <span class="tagline-word tagline-ai">Artificial Intelligence</span>
+      </div>
+
+      <p class="hero-sub reveal-up" style="--d:0.55s">
+        Civil Engineering student at <strong>COMSATS University Islamabad</strong> — building the bridge between reinforced concrete and deep neural networks. Researching AI-based structural health monitoring with YOLOv11.
+      </p>
+
+      <div class="hero-ctas reveal-up" style="--d:0.7s">
+        <a href="#projects" class="btn-primary">
+          View My Work <i class="fas fa-arrow-right"></i>
+        </a>
+        <a href="#contact" class="btn-ghost">
+          Get In Touch
+        </a>
+      </div>
+
+      <div class="hero-stats reveal-up" style="--d:0.85s">
+        <div class="stat">
+          <span class="stat-num">3.75</span>
+          <span class="stat-label">CGPA / 4.00</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">4</span>
+          <span class="stat-label">Internships</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">YOLOv11s-seg</span>
+          <span class="stat-label">FYP Model</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-image-wrap reveal-right" style="--d:0.3s">
+      <div class="hero-img-ring"></div>
+      <div class="hero-img-ring hero-img-ring-2"></div>
+      <div class="hero-img-container">
+        <!-- Replace 'profile.jpg' with your actual image file -->
+        <img src="profile.jpeg" alt="Hasnain Haroon" class="hero-img" id="heroImg" />
+        <div class="hero-img-placeholder" id="heroImgPlaceholder">
+          <i class="fas fa-user"></i>
+          <span></span>
+        </div>
+      </div>
+      <div class="hero-chip chip-1">
+        <i class="fas fa-brain"></i> Deep Learning
+      </div>
+      <div class="hero-chip chip-2">
+        <i class="fas fa-building"></i> Structural Engineering
+      </div>
+      <div class="hero-chip chip-3">
+        <i class="fas fa-eye"></i> Computer Vision
+      </div>
+    </div>
+
+    <a href="#about" class="scroll-hint" aria-label="Scroll down">
+      <span class="scroll-hint-text">Scroll</span>
+      <div class="scroll-hint-line"></div>
+    </a>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">01 / About</span>
+        <h2 class="section-title">Who I Am</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <p class="about-lead">
+            I'm a final-year <strong>Civil Engineering</strong> student at COMSATS University Islamabad (Wah Cantt Campus), graduating September 2026 with a CGPA of <strong>3.75/4.00</strong>.
+          </p>
+          <p>
+            My work sits at the intersection of two worlds: the physical world of concrete, steel, and structures — and the digital world of neural networks, image processing, and intelligent systems. I believe the future of infrastructure safety lies in AI-powered monitoring, and I'm actively building toward that vision through research and hands-on engineering practice.
+          </p>
+          <p>
+            I've completed <strong>four engineering internships</strong> spanning residential site work, multi-storey commercial buildings, surveying field camps, and structural office design — gaining real-world exposure across the full project lifecycle.
+          </p>
+          <div class="about-tags">
+            <span class="tag">Structural Analysis</span>
+            <span class="tag">RC Design</span>
+            <span class="tag">ETABS</span>
+            <span class="tag">YOLOv11</span>
+            <span class="tag">Computer Vision</span>
+            <span class="tag">AutoCAD</span>
+            <span class="tag">Deep Learning</span>
+            <span class="tag">Primavera P6</span>
+            <span class="tag">LATEX</span>
+            <span class="tag">MS Word</span>
+            <span class="tag">MS Excel</span>
+          </div>
+        </div>
+
+        <div class="about-cards fade-in">
+          <div class="info-card">
+            <div class="info-card-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <p class="info-card-label">Location</p>
+              <p class="info-card-value">Fateh Jang, Punjab, Pakistan</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon"><i class="fas fa-university"></i></div>
+            <div>
+              <p class="info-card-label">University</p>
+              <p class="info-card-value">COMSATS University Islamabad, Wah Cantt</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon"><i class="fas fa-graduation-cap"></i></div>
+            <div>
+              <p class="info-card-label">Degree</p>
+              <p class="info-card-value">B.Sc. Civil Engineering (2022–2026)</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon"><i class="fas fa-phone"></i></div>
+            <div>
+              <p class="info-card-label">Phone</p>
+              <p class="info-card-value">+92 345 5039097</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <p class="info-card-label">Email</p>
+              <p class="info-card-value">hasnainharoon456@gmail.com</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon"><i class="fas fa-language"></i></div>
+            <div>
+              <p class="info-card-label">Languages</p>
+              <p class="info-card-value">Urdu (Native) · English (Professional)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EDUCATION ── -->
+  <section class="section section-alt" id="education">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">02 / Education</span>
+        <h2 class="section-title">Academic Journey</h2>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item fade-in">
+          <div class="timeline-marker">
+            <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
+          </div>
+          <div class="timeline-card featured-edu">
+            <div class="timeline-period">2022 – 2026</div>
+            <h3 class="timeline-title">B.Sc. Civil Engineering</h3>
+            <p class="timeline-place"><i class="fas fa-university"></i> COMSATS University Islamabad, Wah Cantt Campus</p>
+            <div class="cgpa-badge">
+              <span class="cgpa-label">CGPA</span>
+              <span class="cgpa-value">3.75 / 4.00</span>
+            </div>
+            <p class="timeline-desc">Specializing in structural engineering with active research in AI-based structural health monitoring. Expected graduation: September 2026.</p>
+            <div class="edu-highlights">
+              <span class="edu-hl"><i class="fas fa-check-circle"></i> Structural Analysis & Design</span>
+              <span class="edu-hl"><i class="fas fa-check-circle"></i> AI & Computer Vision Research</span>
+              <span class="edu-hl"><i class="fas fa-check-circle"></i> 4 Engineering Internships</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-marker">
+            <div class="timeline-icon"><i class="fas fa-school"></i></div>
+          </div>
+          <div class="timeline-card">
+            <div class="timeline-period">2020 – 2022</div>
+            <h3 class="timeline-title">Intermediate (FSc Pre-Engineering)</h3>
+            <p class="timeline-place"><i class="fas fa-map-marker-alt"></i> Wah Hope College, Fateh Jang</p>
+            <p class="timeline-desc">Pre-Engineering stream building strong foundations in Mathematics, Physics, and Chemistry.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-marker">
+            <div class="timeline-icon"><i class="fas fa-book"></i></div>
+          </div>
+          <div class="timeline-card">
+            <div class="timeline-period">2018 – 2020</div>
+            <h3 class="timeline-title">Matriculation (Science)</h3>
+            <p class="timeline-place"><i class="fas fa-map-marker-alt"></i> Govt. Boys High School No.2, Fateh Jang</p>
+            <p class="timeline-desc">Science stream with focus on Mathematics and Physics.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SKILLS ── -->
+  <section class="section" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">03 / Skills</span>
+        <h2 class="section-title">Technical Arsenal</h2>
+      </div>
+
+      <div class="skills-grid">
+
+        <div class="skill-category fade-in">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon"><i class="fas fa-laptop-code"></i></div>
+            <h3>Engineering Software</h3>
+          </div>
+          <div class="skill-bars">
+            <div class="skill-bar-item">
+              <div class="skill-bar-top"><span>AutoCAD</span><span class="skill-pct">90%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-top"><span>ETABS</span><span class="skill-pct">82%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="82"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-top"><span>Revit</span><span class="skill-pct">75%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-top"><span>Primavera P6</span><span class="skill-pct">78%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-top"><span>SWMM</span><span class="skill-pct">65%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="65"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-top"><span>RISA 2D</span><span class="skill-pct">70%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="70"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-top"><span>LATEX</span><span class="skill-pct">60%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="60"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-top"><span>MS Word</span><span class="skill-pct">95%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-top"><span>MS Excel</span><span class="skill-pct">85%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-category fade-in">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon"><i class="fas fa-building"></i></div>
+            <h3>Structural & Civil</h3>
+          </div>
+          <div class="skill-tags-wrap">
+            <span class="skill-tag-pill">Structural Analysis</span>
+            <span class="skill-tag-pill">RC Design</span>
+            <span class="skill-tag-pill">Steel Structure Design</span>
+            <span class="skill-tag-pill">Engineering Drawing</span>
+            <span class="skill-tag-pill">Surveying</span>
+            <span class="skill-tag-pill">Quantity Estimation</span>
+            <span class="skill-tag-pill">Foundation Design</span>
+            <span class="skill-tag-pill">Load Analysis</span>
+          </div>
+        </div>
+
+        <div class="skill-category fade-in">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon"><i class="fas fa-brain"></i></div>
+            <h3>AI & Programming</h3>
+          </div>
+          <div class="skill-bars">
+            <div class="skill-bar-item">
+              <div class="skill-bar-top"><span>Python</span><span class="skill-pct">70%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="70"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-top"><span>YOLOv11 / Deep Learning</span><span class="skill-pct">75%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-top"><span>Computer Vision</span><span class="skill-pct">72%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="72"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-bar-top"><span>Image Processing</span><span class="skill-pct">68%</span></div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="68"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-category fade-in">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon"><i class="fas fa-users"></i></div>
+            <h3>Professional Skills</h3>
+          </div>
+          <div class="skill-tags-wrap">
+            <span class="skill-tag-pill">Teamwork</span>
+            <span class="skill-tag-pill">Communication</span>
+            <span class="skill-tag-pill">Problem Solving</span>
+            <span class="skill-tag-pill">Time Management</span>
+            <span class="skill-tag-pill">Technical Writing</span>
+            <span class="skill-tag-pill">Report Writing</span>
+            <span class="skill-tag-pill">Project Management</span>
+            <span class="skill-tag-pill">Critical Thinking</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROJECTS ── -->
+  <section class="section section-alt" id="projects">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">04 / Projects</span>
+        <h2 class="section-title">Featured Work</h2>
+      </div>
+
+      <!-- FYP FEATURED CARD -->
+      <div class="fyp-card fade-in">
+        <div class="fyp-badge">⭐ Final Year Project</div>
+        <div class="fyp-inner">
+          <div class="fyp-text">
+            <div class="fyp-period">Sep 2025 – May 2026</div>
+            <h3 class="fyp-title">Deep Learning-Based Structural Crack Detection, Segmentation, Width Estimation &amp; Severity Classification</h3>
+            <p class="fyp-subtitle">Using YOLOv11s-seg</p>
+            <p class="fyp-desc">
+              Developed a state-of-the-art AI system for automated structural health monitoring. The model detects, segments, and classifies cracks in concrete structures — estimating crack width and severity to assist engineers in maintenance decisions.
+            </p>
+            <ul class="fyp-bullets">
+              <li><i class="fas fa-caret-right"></i> Instance segmentation using YOLOv11s-seg architecture</li>
+              <li><i class="fas fa-caret-right"></i> Real-time crack width estimation via pixel-to-mm calibration</li>
+              <li><i class="fas fa-caret-right"></i> Multi-class severity classification (Hairline, Fine/Minor, Moderate, Severe)</li>
+              <li><i class="fas fa-caret-right"></i> Web platform for desktop deployment</li>
+              <li><i class="fas fa-caret-right"></i> Android application for field use</li>
+            </ul>
+            <div class="fyp-tech-stack">
+              <span class="tech-chip">YOLOv11s-seg</span>
+              <span class="tech-chip">Python</span>
+              <span class="tech-chip">Computer Vision</span>
+              <span class="tech-chip">Deep Learning</span>
+              <span class="tech-chip">Android</span>
+              <span class="tech-chip">Web Platform</span>
+            </div>
+            <div class="fyp-links">
+              <a href="https://github.com/hasnainharoonqureshi" target="_blank" rel="noopener" class="btn-primary btn-sm">
+                <i class="fab fa-github"></i> View on GitHub
+              </a>
+            </div>
+          </div>
+          <div class="fyp-results">
+
+  <img src="fyp1.png" alt="Results">
+
+</div>
+        </div>
+      </div>
+
+      <!-- OTHER PROJECTS GRID -->
+      <div class="projects-grid">
+
+        <div class="project-card fade-in">
+          <div class="project-card-top">
+            <div class="project-icon"><i class="fas fa-building"></i></div>
+            <div class="project-links">
+              <a href="https://github.com/hasnainharoonqureshi" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="project-title">ETABS Structural Models</h3>
+          <p class="project-desc">RC framed building models with seismic analysis, load combinations, and design checks per ACI & ASCE codes.</p>
+          <div class="project-tech">
+            <span>ETABS</span><span>RC Design</span><span>Seismic Analysis</span>
+          </div>
+          <div class="project-status coming">
+            <i class="fas fa-clock"></i> Coming Soon
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-card-top">
+            <div class="project-icon"><i class="fas fa-hard-hat"></i></div>
+            <div class="project-links">
+              <a href="https://github.com/hasnainharoonqureshi" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="project-title">Primavera P6 Scheduling</h3>
+          <p class="project-desc">Construction project schedules with CPM analysis, resource leveling, and progress tracking for multi-storey buildings.</p>
+          <div class="project-tech">
+            <span>Primavera P6</span><span>CPM</span><span>Project Management</span>
+          </div>
+          <div class="project-status coming">
+            <i class="fas fa-clock"></i> Coming Soon
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-card-top">
+            <div class="project-icon"><i class="fas fa-eye"></i></div>
+            <div class="project-links">
+              <a href="https://github.com/hasnainharoonqureshi" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="project-title">Computer Vision Pipeline</h3>
+          <p class="project-desc">Image preprocessing and object detection pipeline for structural defect analysis. Built with Python and OpenCV.</p>
+          <div class="project-tech">
+            <span>Python</span><span>OpenCV</span><span>YOLO</span>
+          </div>
+          <div class="project-status coming">
+            <i class="fas fa-clock"></i> Coming Soon
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-card-top">
+            <div class="project-icon"><i class="fas fa-drafting-compass"></i></div>
+            <div class="project-links">
+              <a href="https://github.com/hasnainharoonqureshi" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="project-title">AutoCAD Structural Drawings</h3>
+          <p class="project-desc">Detailed structural drawings including foundation plans, beam-column schedules, and reinforcement details per design codes.</p>
+          <div class="project-tech">
+            <span>AutoCAD</span><span>Structural Drawing</span><span>Drafting</span>
+          </div>
+          <div class="project-status coming">
+            <i class="fas fa-clock"></i> Coming Soon
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-card-top">
+            <div class="project-icon"><i class="fas fa-water"></i></div>
+            <div class="project-links">
+              <a href="https://github.com/hasnainharoonqureshi" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="project-title">SWMM Drainage Model</h3>
+          <p class="project-desc">Urban wastewater & stormwater management simulation model for drainage network design.</p>
+          <div class="project-tech">
+            <span>SWMM</span><span>Hydrology</span><span>Drainage Design</span>
+          </div>
+          <div class="project-status coming">
+            <i class="fas fa-clock"></i> Coming Soon
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-card-top">
+            <div class="project-icon"><i class="fas fa-mobile-alt"></i></div>
+            <div class="project-links">
+              <a href="https://github.com/hasnainharoonqureshi" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="project-title">SHM Android Application</h3>
+          <p class="project-desc">Mobile app companion to the FYP crack detection system — enabling field engineers to scan and assess structural damage on-site.</p>
+          <div class="project-tech">
+            <span>Android</span><span>AI Model</span><span>Mobile CV</span>
+          </div>
+          <div class="project-status coming">
+            <i class="fas fa-clock"></i> Coming Soon
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EXPERIENCE ── -->
+  <section class="section" id="experience">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">05 / Experience</span>
+        <h2 class="section-title">Internships & Field Work</h2>
+      </div>
+
+      <div class="exp-grid">
+
+        <div class="exp-card fade-in">
+          <div class="exp-number">04</div>
+          <div class="exp-content">
+            <div class="exp-period">14 Jul – 22 Aug 2025</div>
+            <h3 class="exp-role">Trainee Engineer — Structure Office</h3>
+            <p class="exp-company"><i class="fas fa-briefcase"></i> National Engineering Services Pakistan (NESPAK) Pvt. Ltd.</p>
+            <p class="exp-desc">Structural office experience at one of Pakistan's premier engineering consultancies. Worked on structural analysis, design documentation, and office engineering workflows.</p>
+            <div class="exp-tags">
+              <span>Structural Design</span><span>NESPAK</span><span>Office Engineering</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-card fade-in">
+          <div class="exp-number">03</div>
+          <div class="exp-content">
+            <div class="exp-period">5 Aug – 19 Aug 2024</div>
+            <h3 class="exp-role">Survey Camp — Field Training</h3>
+            <p class="exp-company"><i class="fas fa-briefcase"></i> COMSATS University Islamabad, Wah Campus — Harnoi, Abbottabad</p>
+            <p class="exp-desc">Intensive field surveying camp covering topographic survey, leveling, traversing, and contouring in real terrain conditions in Harnoi, Abbottabad.</p>
+            <div class="exp-tags">
+              <span>Surveying</span><span>Topography</span><span>Field Work</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-card fade-in">
+          <div class="exp-number">02</div>
+          <div class="exp-content">
+            <div class="exp-period">Jul – Aug 2024</div>
+            <h3 class="exp-role">Trainee Engineer — Site Engineer</h3>
+            <p class="exp-company"><i class="fas fa-briefcase"></i> Winston Developers (PVT) Limited</p>
+            <p class="exp-desc">Site engineering for a multi-storey commercial building. Supervised construction activities, monitored quality control, and assisted in material estimation and site coordination.</p>
+            <div class="exp-tags">
+              <span>Multi-Storey</span><span>Site Supervision</span><span>QA/QC</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-card fade-in">
+          <div class="exp-number">01</div>
+          <div class="exp-content">
+            <div class="exp-period">Jun – Jul 2024</div>
+            <h3 class="exp-role">Trainee Engineer — Site Engineer</h3>
+            <p class="exp-company"><i class="fas fa-briefcase"></i> Hashim Associates & Builders Pvt. Ltd.</p>
+            <p class="exp-desc">Site engineering for residential housing projects. Gained hands-on experience in construction supervision, reinforcement checking, formwork, concrete pouring, and progress reporting.</p>
+            <div class="exp-tags">
+              <span>Residential</span><span>Construction</span><span>Site Management</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CERTIFICATIONS ── -->
+  <section class="section section-alt" id="certifications">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">06 / Certifications</span>
+        <h2 class="section-title">Credentials & Training</h2>
+      </div>
+
+      <div class="cert-grid">
+
+  <!-- CERTIFICATE 01 -->
+  <div class="cert-card fade-in">
+    <img src="cert1.jpg" alt="Certificate 1" class="cert-preview">
+
+    <div class="cert-body">
+      <h3 class="cert-title"></h3>
+      <p class="cert-issuer"></p>
+      <p class="cert-date"></p>
+    </div>
+
+    <a href="cert1.jpg" target="_blank" class="cert-badge">
+      View
+    </a>
+  </div>
+
+  <!-- CERTIFICATE 02 -->
+  <div class="cert-card fade-in">
+    <img src="cert2.jpg" alt="Certificate 2" class="cert-preview">
+
+    <div class="cert-body">
+      <h3 class="cert-title"></h3>
+      <p class="cert-issuer"></p>
+      <p class="cert-date"></p>
+    </div>
+
+    <a href="cert2.jpg" target="_blank" class="cert-badge">
+      View
+    </a>
+  </div>
+
+  <!-- CERTIFICATE 03 -->
+  <div class="cert-card fade-in">
+    <img src="cert3.jpg" alt="Certificate 3" class="cert-preview">
+
+    <div class="cert-body">
+      <h3 class="cert-title"></h3>
+      <p class="cert-issuer"></p>
+      <p class="cert-date"></p>
+    </div>
+
+    <a href="cert3.jpg" target="_blank" class="cert-badge">
+      View
+    </a>
+  </div>
+
+  <!-- CERTIFICATE 04 -->
+  <div class="cert-card fade-in">
+    <img src="cert4.jpg" alt="Certificate 4" class="cert-preview">
+
+    <div class="cert-body">
+      <h3 class="cert-title"></h3>
+      <p class="cert-issuer"></p>
+      <p class="cert-date"></p>
+    </div>
+
+    <a href="cert4.jpg" target="_blank" class="cert-badge">
+      View
+    </a>
+  </div>
+
+  <!-- CERTIFICATE 05 -->
+  <div class="cert-card fade-in">
+    <img src="cert5.jpg" alt="Certificate 5" class="cert-preview">
+
+    <div class="cert-body">
+      <h3 class="cert-title"></h3>
+      <p class="cert-issuer"></p>
+      <p class="cert-date"></p>
+    </div>
+
+    <a href="cert5.jpg" target="_blank" class="cert-badge">
+      View
+    </a>
+  </div>
+
+  <!-- CERTIFICATE 06 -->
+  <div class="cert-card fade-in">
+    <img src="cert6.jpg" alt="Certificate 6" class="cert-preview">
+
+    <div class="cert-body">
+      <h3 class="cert-title"></h3>
+      <p class="cert-issuer"></p>
+      <p class="cert-date"></p>
+    </div>
+
+    <a href="cert6.jpg" target="_blank" class="cert-badge">
+      View
+    </a>
+  </div>
+
+  <!-- CERTIFICATE 07 -->
+  <div class="cert-card fade-in">
+    <img src="cert7.jpg" alt="Certificate 7" class="cert-preview">
+
+    <div class="cert-body">
+      <h3 class="cert-title"></h3>
+      <p class="cert-issuer"></p>
+      <p class="cert-date"></p>
+    </div>
+
+    <a href="cert7.jpg" target="_blank" class="cert-badge">
+      View
+    </a>
+  </div>
+
+  <!-- CERTIFICATE 08 -->
+  <div class="cert-card fade-in">
+    <img src="cert8.jpg" alt="Certificate 8" class="cert-preview">
+
+    <div class="cert-body">
+      <h3 class="cert-title"></h3>
+      <p class="cert-issuer"></p>
+      <p class="cert-date"></p>
+    </div>
+
+    <a href="cert8.jpg" target="_blank" class="cert-badge">
+      View
+    </a>
+  </div>
+
+  <!-- CERTIFICATE 09 -->
+  <div class="cert-card fade-in">
+    <img src="cert9.jpg" alt="Certificate 9" class="cert-preview">
+
+    <div class="cert-body">
+      <h3 class="cert-title"></h3>
+      <p class="cert-issuer"></p>
+      <p class="cert-date"></p>
+    </div>
+
+    <a href="cert9.jpg" target="_blank" class="cert-badge">
+      View
+    </a>
+  </div>
+
+  <!-- CERTIFICATE 10 -->
+  <div class="cert-card fade-in">
+    <img src="cert10.jpg" alt="Certificate 10" class="cert-preview">
+
+    <div class="cert-body">
+      <h3 class="cert-title"></h3>
+      <p class="cert-issuer"></p>
+      <p class="cert-date"></p>
+    </div>
+
+    <a href="cert10.jpg" target="_blank" class="cert-badge">
+      View
+    </a>
+  </div>
+
+  <!-- CERTIFICATE 11 -->
+  <div class="cert-card fade-in">
+    <img src="cert11.jpg" alt="Certificate 11" class="cert-preview">
+
+    <div class="cert-body">
+      <h3 class="cert-title"></h3>
+      <p class="cert-issuer"></p>
+      <p class="cert-date"></p>
+    </div>
+
+    <a href="cert11.jpg" target="_blank" class="cert-badge">
+      View
+    </a>
+  </div>
+
+  <!-- CERTIFICATE 12 -->
+  <div class="cert-card fade-in">
+    <img src="cert12.jpg" alt="Certificate 12" class="cert-preview">
+
+    <div class="cert-body">
+      <h3 class="cert-title"></h3>
+      <p class="cert-issuer"></p>
+      <p class="cert-date"></p>
+    </div>
+
+    <a href="cert12.jpg" target="_blank" class="cert-badge">
+      View
+    </a>
+  </div>
+
+  <!-- CERTIFICATE 13 -->
+  <div class="cert-card fade-in">
+    <img src="cert13.jpg" alt="Certificate 13" class="cert-preview">
+
+    <div class="cert-body">
+      <h3 class="cert-title"></h3>
+      <p class="cert-issuer"></p>
+      <p class="cert-date"></p>
+    </div>
+
+    <a href="cert13.jpg" target="_blank" class="cert-badge">
+      View
+    </a>
+  </div>
+
+  <!-- CERTIFICATE 14 -->
+  <div class="cert-card fade-in">
+    <img src="cert14.jpg" alt="Certificate 14" class="cert-preview">
+
+    <div class="cert-body">
+      <h3 class="cert-title"></h3>
+      <p class="cert-issuer"></p>
+      <p class="cert-date"></p>
+    </div>
+
+    <a href="cert14.jpg" target="_blank" class="cert-badge">
+      View
+    </a>
+  </div>
+
+  <!-- CERTIFICATE 15 -->
+  <div class="cert-card fade-in">
+    <img src="cert15.jpg" alt="Certificate 15" class="cert-preview">
+
+    <div class="cert-body">
+      <h3 class="cert-title"></h3>
+      <p class="cert-issuer"></p>
+      <p class="cert-date"></p>
+    </div>
+
+    <a href="cert15.jpg" target="_blank" class="cert-badge">
+      View
+    </a>
+  </div>
+
+</div>
+      <p class="cert-note fade-in"><i class="fas fa-info-circle"></i></p>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">07 / Contact</span>
+        <h2 class="section-title">Let's Connect</h2>
+        <p class="section-sub">Open to internship opportunities, research collaborations, and graduate admissions discussions.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info fade-in">
+          <h3 class="contact-info-title">Reach Out Directly</h3>
+          <div class="contact-links">
+            <a href="mailto:hasnainharoon456@gmail.com" class="contact-link-item">
+              <div class="cli-icon"><i class="fas fa-envelope"></i></div>
+              <div>
+                <p class="cli-label">Email</p>
+                <p class="cli-value">hasnainharoon456@gmail.com</p>
+              </div>
+              <i class="fas fa-arrow-right cli-arrow"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/hasnainharoon" target="_blank" rel="noopener" class="contact-link-item">
+              <div class="cli-icon linkedin"><i class="fab fa-linkedin-in"></i></div>
+              <div>
+                <p class="cli-label">LinkedIn</p>
+                <p class="cli-value">linkedin.com/in/hasnainharoon</p>
+              </div>
+              <i class="fas fa-arrow-right cli-arrow"></i>
+            </a>
+            <a href="https://github.com/hasnainharoonqureshi" target="_blank" rel="noopener" class="contact-link-item">
+              <div class="cli-icon github"><i class="fab fa-github"></i></div>
+              <div>
+                <p class="cli-label">GitHub</p>
+                <p class="cli-value">github.com/hasnainharoonqureshi</p>
+              </div>
+              <i class="fas fa-arrow-right cli-arrow"></i>
+            </a>
+            <a href="tel:+923455039097" class="contact-link-item">
+              <div class="cli-icon phone"><i class="fas fa-phone"></i></div>
+              <div>
+                <p class="cli-label">Phone</p>
+                <p class="cli-value">+92 345 5039097</p>
+              </div>
+              <i class="fas fa-arrow-right cli-arrow"></i>
+            </a>
+          </div>
+
+          <div class="resume-cta fade-in">
+            <p>Want a full overview of my background?</p>
+            <a href="Hasnain_Haroon_CV.pdf" download class="btn-primary">
+              <i class="fas fa-file-pdf"></i> Download CV (PDF)
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-form-wrap fade-in">
+          <h3 class="contact-info-title">Send a Message</h3>
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Your Name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="Internship Opportunity / Research Collaboration..." />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Hi Hasnain, I'd like to discuss..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary btn-full">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+            <p class="form-note">* This form uses mailto. For a backend form, integrate Formspree or EmailJS.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <span class="logo-bracket">&lt;</span>HH<span class="logo-bracket">/&gt;</span>
+        </div>
+        <p class="footer-tagline">Structural Engineering ✕ Artificial Intelligence</p>
+        <div class="footer-socials">
+          <a href="https://github.com/hasnainharoonqureshi" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/hasnainharoon" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="mailto:hasnainharoon456@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p class="footer-copy">© 2026 Hasnain Haroon · Built with passion, deployed on GitHub Pages</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
