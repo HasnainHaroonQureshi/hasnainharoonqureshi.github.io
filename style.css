@@ -51,6 +51,12 @@ body {
   cursor: none;
 }
 
+/* Restore cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  body { cursor: auto; }
+  .cursor, .cursor-follower { display: none !important; }
+}
+
 /* ── CUSTOM CURSOR ── */
 .cursor {
   width: 10px; height: 10px;
@@ -96,6 +102,26 @@ img { max-width: 100%; display: block; }
   backdrop-filter: blur(18px) saturate(180%);
   border-bottom: 1px solid transparent;
   transition: var(--transition);
+}
+
+/* CV button in navbar */
+.btn-CV {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  transition: var(--transition);
+  display: flex; align-items: center; gap: 0.4rem;
+  white-space: nowrap;
+}
+.btn-CV:hover {
+  background: var(--accent);
+  color: var(--bg-0);
+  box-shadow: 0 0 24px rgba(0,196,255,0.4);
 }
 .navbar.scrolled {
   background: rgba(8,12,18,0.92);
@@ -1003,16 +1029,6 @@ img { max-width: 100%; display: block; }
   gap: 1.5rem;
   margin-bottom: 1.5rem;
 }
-.cert-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  display: flex; flex-direction: column; gap: 0.75rem;
-  transition: var(--transition);
-  position: relative;
-}
-.cert-card:hover { border-color: var(--border-glow); transform: translateY(-4px); }
 .placeholder-cert { opacity: 0.55; }
 
 .cert-icon { font-size: 1.6rem; color: var(--accent); }
@@ -1035,6 +1051,211 @@ img { max-width: 100%; display: block; }
   font-size: 0.82rem;
   color: var(--text-muted);
   display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+}
+
+/* ── CERTIFICATE CARDS — UNIFIED ANIMATED TREATMENT ── */
+
+/* Shared animated border on ALL cert cards */
+.cert-card {
+  background: var(--bg-card);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex; flex-direction: column; gap: 0.75rem;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  background-clip: padding-box;
+}
+
+/* Animated border via pseudo-element on every card */
+.cert-card::before {
+  content: '';
+  position: absolute; inset: -1.5px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    135deg,
+    rgba(0,196,255,0.5),
+    rgba(79,255,176,0.3),
+    rgba(0,196,255,0.15),
+    rgba(79,255,176,0.5),
+    rgba(0,196,255,0.5)
+  );
+  background-size: 300% 300%;
+  animation: certBorderFlow 5s linear infinite;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+@keyframes certBorderFlow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+/* Inner card fill sits on top of the border pseudo */
+.cert-card::after {
+  content: '';
+  position: absolute; inset: 1.5px;
+  background: var(--bg-card);
+  border-radius: calc(var(--radius-lg) - 1.5px);
+  z-index: 0;
+}
+
+/* All direct children of cert-card sit above the fill */
+.cert-card > * { position: relative; z-index: 1; }
+
+/* Hover lift */
+.cert-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 28px rgba(0,196,255,0.18), var(--shadow-card);
+}
+
+/* Sweep shimmer on hover */
+.cert-card:hover::before {
+  animation-duration: 2s;
+}
+
+/* Floating sparks inside every card */
+.cert-sparks {
+  position: absolute; inset: 0;
+  pointer-events: none; overflow: hidden;
+  border-radius: var(--radius-lg);
+  z-index: 1;
+}
+.cert-sparks span {
+  position: absolute;
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+  animation: certSparkFloat 4s ease-in-out infinite;
+}
+.cert-sparks span:nth-child(1) { left: 8%;  top: 18%; animation-delay: 0.0s; }
+.cert-sparks span:nth-child(2) { left: 82%; top: 12%; animation-delay: 0.7s; width:2px; height:2px; background: var(--accent-2); }
+.cert-sparks span:nth-child(3) { left: 50%; top: 5%;  animation-delay: 1.3s; }
+.cert-sparks span:nth-child(4) { left: 90%; top: 72%; animation-delay: 1.9s; width:2px; height:2px; }
+.cert-sparks span:nth-child(5) { left: 14%; top: 80%; animation-delay: 2.5s; background: var(--accent-2); }
+.cert-sparks span:nth-child(6) { left: 65%; top: 90%; animation-delay: 0.4s; width:2px; height:2px; }
+
+@keyframes certSparkFloat {
+  0%,100% { opacity: 0; transform: translateY(0) scale(1); }
+  25%      { opacity: 0.8; }
+  60%      { opacity: 0.5; transform: translateY(-10px) scale(1.4); }
+  90%      { opacity: 0;   transform: translateY(-18px) scale(0.5); }
+}
+
+/* cert-preview image */
+.cert-preview {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  border: 1px solid rgba(0,196,255,0.15);
+  transition: box-shadow 0.4s, transform 0.4s;
+}
+.cert-card:hover .cert-preview {
+  box-shadow: 0 0 18px rgba(0,196,255,0.2);
+  transform: scale(1.02);
+}
+
+/* ── AWARD CARD — extra gold layer on top of base styles ── */
+.cert-card-award::before {
+  background: linear-gradient(
+    135deg,
+    #f5c842, #ff9d00, #ffe680, #c8910a, #f5c842, #fffbe0, #f5c842
+  ) !important;
+  background-size: 400% 400% !important;
+  animation: awardCardBorder 3s linear infinite !important;
+}
+
+@keyframes awardCardBorder {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 400% 50%; }
+}
+
+.cert-card-award {
+  box-shadow:
+    0 0 32px rgba(245,200,66,0.22),
+    0 0 80px rgba(245,200,66,0.08),
+    var(--shadow-card);
+}
+.cert-card-award:hover {
+  box-shadow:
+    0 0 48px rgba(245,200,66,0.35),
+    0 0 100px rgba(245,200,66,0.12),
+    var(--shadow-card);
+  transform: translateY(-6px);
+}
+
+/* Outer glow ring — award only */
+.cert-award-glow-ring {
+  position: absolute; inset: -8px;
+  border-radius: calc(var(--radius-lg) + 8px);
+  box-shadow:
+    0 0 20px 3px rgba(245,200,66,0.2),
+    0 0 55px 8px rgba(245,200,66,0.07);
+  pointer-events: none;
+  animation: awardRingPulse 2.5s ease-in-out infinite;
+  z-index: -1;
+}
+@keyframes awardRingPulse {
+  0%,100% { opacity: 0.6; }
+  50%      { opacity: 1; box-shadow: 0 0 32px 6px rgba(245,200,66,0.3), 0 0 80px 12px rgba(245,200,66,0.1); }
+}
+
+/* Gold sparks override on award card */
+.cert-card-award .cert-sparks span {
+  background: var(--gold);
+}
+.cert-card-award .cert-sparks span:nth-child(2),
+.cert-card-award .cert-sparks span:nth-child(5) {
+  background: #ffe97d;
+}
+
+/* Award preview image */
+.cert-card-award .cert-preview {
+  border-color: rgba(245,200,66,0.4);
+  box-shadow: 0 0 14px rgba(245,200,66,0.18);
+}
+.cert-card-award:hover .cert-preview {
+  box-shadow: 0 0 24px rgba(245,200,66,0.35);
+}
+
+/* Award title gold shimmer */
+.cert-title-award {
+  background: linear-gradient(90deg, #ffe97d, #f5c842, #c8910a, #f5c842, #ffe97d);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: certTitleShine 3s linear infinite;
+  font-size: 1rem !important;
+}
+@keyframes certTitleShine {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Issuer & date gold tint on award */
+.cert-card-award .cert-issuer i,
+.cert-card-award .cert-date i { color: var(--gold); }
+
+/* Award badge */
+.cert-badge-award {
+  background: rgba(245,200,66,0.12) !important;
+  border-color: rgba(245,200,66,0.4) !important;
+  color: var(--gold) !important;
+  display: flex !important; align-items: center; gap: 0.3rem;
+  animation: certBadgeGlow 2s ease-in-out infinite;
+}
+@keyframes certBadgeGlow {
+  0%,100% { box-shadow: none; }
+  50%      { box-shadow: 0 0 12px rgba(245,200,66,0.45); }
+}
+
+/* Touch: disable hover transforms */
+@media (hover: none) {
+  .cert-card:hover { transform: none; }
+  .cert-card:hover .cert-preview { transform: none; }
 }
 
 /* ── CONTACT ── */
@@ -1153,6 +1374,165 @@ img { max-width: 100%; display: block; }
 .footer-socials a:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 .footer-copy { font-size: 0.75rem; color: var(--text-muted); }
 
+/* ── FYP AWARD BANNER ── */
+.fyp-award-banner {
+  position: relative;
+  margin-bottom: 2rem;
+  border-radius: var(--radius-lg);
+  padding: 1.2rem 1.5rem;
+  overflow: hidden;
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(var(--bg-0), var(--bg-0)) padding-box,
+    linear-gradient(120deg, #f5c842, #ff9d00, #f5c842, #fffbe0, #f5c842) border-box;
+  background-size: 100%, 300% 100%;
+  animation: awardBorderFlow 3s linear infinite;
+  box-shadow:
+    0 0 32px rgba(245,200,66,0.22),
+    0 0 80px rgba(245,200,66,0.08),
+    inset 0 0 32px rgba(245,200,66,0.04);
+}
+
+@keyframes awardBorderFlow {
+  0%   { background-position: 100%, 0% 50%; }
+  100% { background-position: 100%, 300% 50%; }
+}
+
+/* Sweep shimmer across the banner */
+.fyp-award-bg-sweep {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(245,200,66,0.07) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  animation: awardSweep 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes awardSweep {
+  0%   { background-position: -100% 0; }
+  100% { background-position: 300% 0; }
+}
+
+/* Floating particle sparks */
+.fyp-award-particles {
+  position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+}
+.fyp-award-particles span {
+  position: absolute;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0;
+  animation: awardSpark 3s ease-in-out infinite;
+}
+.fyp-award-particles span:nth-child(1) { left: 8%;  top: 20%; animation-delay: 0.0s; }
+.fyp-award-particles span:nth-child(2) { left: 18%; top: 70%; animation-delay: 0.4s; width:3px; height:3px; }
+.fyp-award-particles span:nth-child(3) { left: 82%; top: 25%; animation-delay: 0.9s; }
+.fyp-award-particles span:nth-child(4) { left: 91%; top: 65%; animation-delay: 1.3s; width:3px; height:3px; }
+.fyp-award-particles span:nth-child(5) { left: 45%; top: 10%; animation-delay: 0.6s; width:2px; height:2px; }
+.fyp-award-particles span:nth-child(6) { left: 60%; top: 80%; animation-delay: 1.8s; }
+.fyp-award-particles span:nth-child(7) { left: 30%; top: 55%; animation-delay: 2.2s; width:2px; height:2px; }
+.fyp-award-particles span:nth-child(8) { left: 75%; top: 45%; animation-delay: 0.2s; }
+@keyframes awardSpark {
+  0%,100% { opacity: 0; transform: translateY(0) scale(1); }
+  30%      { opacity: 1; }
+  60%      { opacity: 0.7; transform: translateY(-12px) scale(1.4); }
+  90%      { opacity: 0; transform: translateY(-20px) scale(0.6); }
+}
+
+/* Inner layout */
+.fyp-award-inner {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; gap: 1.25rem;
+}
+
+/* Trophy icon */
+.fyp-award-trophy {
+  flex-shrink: 0;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #ffd66e, #c8910a);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  color: #fff8e0;
+  box-shadow:
+    0 0 0 4px rgba(245,200,66,0.2),
+    0 0 20px rgba(245,200,66,0.5),
+    0 0 60px rgba(245,200,66,0.15);
+  animation: trophyPulse 2s ease-in-out infinite;
+}
+@keyframes trophyPulse {
+  0%,100% { box-shadow: 0 0 0 4px rgba(245,200,66,0.2), 0 0 20px rgba(245,200,66,0.5), 0 0 60px rgba(245,200,66,0.15); }
+  50%      { box-shadow: 0 0 0 8px rgba(245,200,66,0.12), 0 0 36px rgba(245,200,66,0.7), 0 0 80px rgba(245,200,66,0.25); }
+}
+
+/* Text block */
+.fyp-award-text { flex: 1; }
+.fyp-award-label {
+  font-size: 0.68rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--gold);
+  display: block; margin-bottom: 0.3rem;
+  animation: awardLabelGlow 2s ease-in-out infinite;
+}
+@keyframes awardLabelGlow {
+  0%,100% { opacity: 0.85; text-shadow: none; }
+  50%      { opacity: 1; text-shadow: 0 0 12px rgba(245,200,66,0.8); }
+}
+.fyp-award-title {
+  font-family: var(--font-display);
+  font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin-bottom: 0.2rem;
+  background: linear-gradient(90deg, #fff8dc, #f5c842, #ffe680, #f5c842, #fff8dc);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: awardTitleShine 3s linear infinite;
+}
+@keyframes awardTitleShine {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+.fyp-award-sub {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Medal badge */
+.fyp-award-medal {
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-size: 1.8rem; font-weight: 900;
+  line-height: 1;
+  background: radial-gradient(circle at 35% 30%, #ffe97d, #c8910a 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 8px rgba(245,200,66,0.6));
+  animation: medalSpin 0.6s cubic-bezier(0.22,1,0.36,1) both;
+}
+.fyp-award-medal sup { font-size: 0.75rem; vertical-align: super; }
+@keyframes medalSpin {
+  0%   { opacity: 0; transform: rotateY(90deg) scale(0.5); }
+  100% { opacity: 1; transform: rotateY(0deg) scale(1); }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .fyp-award-inner { gap: 0.9rem; }
+  .fyp-award-trophy { width: 42px; height: 42px; font-size: 1.1rem; }
+  .fyp-award-medal { font-size: 1.4rem; }
+  .fyp-award-sub { font-size: 0.72rem; }
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 1100px) {
   .hero { flex-direction: column; text-align: center; gap: 3rem; padding: 6rem 2rem 4rem; }
@@ -1179,14 +1559,105 @@ img { max-width: 100%; display: block; }
 }
 
 @media (max-width: 600px) {
-  .section { padding: 5rem 0; }
-  .hero { padding: 5rem 1.5rem 3rem; }
+  /* ── Layout ── */
+  .section { padding: 4rem 0; }
   .container { padding: 0 1.25rem; }
-  .exp-card { flex-direction: column; gap: 0.5rem; }
+  .section-header { margin-bottom: 2.5rem; }
+
+  /* ── Navbar ── */
+  .navbar { padding: 0.85rem 1.25rem; }
+  .nav-logo { font-size: 1.1rem; }
+  .btn-CV { font-size: 0.75rem; padding: 0.4rem 0.85rem; }
+
+  /* Mobile nav drawer full-width */
+  .nav-links { width: 100%; border-left: none; border-bottom: 1px solid var(--border); padding: 4.5rem 1.5rem 2rem; }
+  .nav-link { font-size: 1rem; padding: 0.65rem 0.75rem; }
+
+  /* ── Hero ── */
+  .hero { padding: 5rem 1.25rem 3rem; gap: 2rem; }
+  .hero-name { font-size: clamp(2.4rem, 11vw, 3.5rem); }
+  .hero-tagline { font-size: 0.82rem; gap: 0.6rem; }
+  .hero-sub { font-size: 0.95rem; }
+  .hero-badge { font-size: 0.72rem; padding: 0.35rem 0.85rem; }
+  .hero-ctas { flex-direction: column; align-items: center; gap: 0.75rem; }
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-ghost { width: 100%; max-width: 320px; justify-content: center; }
+
+  .hero-stats { flex-wrap: wrap; gap: 1rem 1.5rem; justify-content: center; }
+  .stat-num { font-size: 1.2rem; }
+  .stat-divider { display: none; }
+
+  .hero-image-wrap { width: 240px; height: 240px; }
+  .hero-img-container { width: 190px; height: 190px; }
+
+  /* Chips can overflow on tiny screens — hide or reposition */
+  .chip-1 { left: -4%; top: 6%; font-size: 0.68rem; padding: 0.3rem 0.7rem; }
+  .chip-2 { left: -4%; bottom: 12%; font-size: 0.68rem; padding: 0.3rem 0.7rem; }
+  .chip-3 { right: -4%; top: 16%; font-size: 0.68rem; padding: 0.3rem 0.7rem; }
+
+  /* ── About ── */
+  .about-lead { font-size: 1rem; }
+  .about-tags { gap: 0.4rem; }
+  .tag { font-size: 0.73rem; padding: 0.25rem 0.7rem; }
+
+  .info-card { padding: 0.85rem 1rem; gap: 0.75rem; }
+  .info-card-value { font-size: 0.82rem; }
+
+  /* ── Skills ── */
+  .skill-category { padding: 1.5rem; }
+  .skill-tag-pill { font-size: 0.74rem; padding: 0.35rem 0.75rem; }
+
+  /* ── FYP ── */
+  .fyp-card { padding: 1.5rem; }
+
+  /* ── Experience ── */
+  .exp-card { flex-direction: column; gap: 0.5rem; padding: 1.25rem; }
   .exp-number { font-size: 1.5rem; }
-  .hero-stats { gap: 1.25rem; }
+  /* Disable sideways hover shift on mobile (causes layout jump) */
+  .exp-card:hover { transform: none; }
+
+  /* ── Certs ── */
+  .cert-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .cert-card { padding: 1.1rem; }
+
+  /* ── Contact ── */
+  .contact-link-item { padding: 0.85rem 1rem; gap: 0.75rem; }
+  .cli-value { font-size: 0.78rem; word-break: break-all; }
+  /* Disable sideways hover shift on mobile */
+  .contact-link-item:hover { transform: none; }
+
+  .form-group input,
+  .form-group textarea { font-size: 1rem; } /* Prevents iOS zoom on focus */
+
+  /* ── Timeline ── */
   .timeline-item { flex-direction: column; }
   .timeline-icon { margin-left: 0; }
   .timeline { padding-left: 0; }
   .timeline::before { display: none; }
+
+  /* ── Buttons ── */
+  .btn-primary, .btn-ghost { font-size: 0.88rem; padding: 0.7rem 1.4rem; }
+
+  /* ── Footer ── */
+  .footer { padding: 2rem 0; }
+  .footer-tagline { font-size: 0.78rem; text-align: center; }
+  .footer-copy { font-size: 0.7rem; text-align: center; }
+}
+
+/* Very small screens (320px range) */
+@media (max-width: 380px) {
+  .hero-name { font-size: 2.2rem; }
+  .cert-grid { grid-template-columns: 1fr; }
+  .hero-chip { display: none; } /* hide floating chips to avoid overflow on tiny screens */
+}
+
+/* ── Touch: remove hover-only transforms that feel broken on mobile ── */
+@media (hover: none) {
+  .info-card:hover,
+  .project-card:hover,
+  .exp-card:hover,
+  .contact-link-item:hover,
+  .cert-card:hover { transform: none; }
+  .btn-primary:hover { transform: none; }
+  .footer-socials a:hover { transform: none; }
 }

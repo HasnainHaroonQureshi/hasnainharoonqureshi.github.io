@@ -38,6 +38,9 @@ document.addEventListener('mousemove', e => {
    1. LIQUID CURSOR + TRAIL SYSTEM
 ──────────────────────────────────────────────────────────────── */
 (function initLiquidCursor() {
+  /* Skip cursor entirely on touch/mobile devices */
+  if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+
   /* Replace the two static divs with a canvas-based liquid cursor */
   const cursor   = document.getElementById('cursor');
   const follower = document.getElementById('cursorFollower');
@@ -213,16 +216,41 @@ document.addEventListener('mousemove', e => {
   const links = document.getElementById('navLinks');
   if (!btn || !links) return;
 
+  /* Create overlay for mobile drawer */
+  const overlay = document.createElement('div');
+  Object.assign(overlay.style, {
+    display: 'none', position: 'fixed', inset: '0',
+    background: 'rgba(0,0,0,0.55)', zIndex: '998',
+    backdropFilter: 'blur(2px)',
+    transition: 'opacity 0.3s',
+    opacity: '0',
+  });
+  document.body.appendChild(overlay);
+
+  function openMenu() {
+    btn.classList.add('open');
+    links.classList.add('open');
+    overlay.style.display = 'block';
+    requestAnimationFrame(() => { overlay.style.opacity = '1'; });
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    btn.classList.remove('open');
+    links.classList.remove('open');
+    overlay.style.opacity = '0';
+    setTimeout(() => { overlay.style.display = 'none'; }, 300);
+    document.body.style.overflow = '';
+  }
+
   btn.addEventListener('click', () => {
-    btn.classList.toggle('open');
-    links.classList.toggle('open');
+    btn.classList.contains('open') ? closeMenu() : openMenu();
   });
 
+  overlay.addEventListener('click', closeMenu);
+
   links.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      btn.classList.remove('open');
-      links.classList.remove('open');
-    });
+    link.addEventListener('click', closeMenu);
   });
 })();
 
@@ -1475,9 +1503,10 @@ function showNotification(msg, type = 'success') {
     if (e.key === 'Escape') {
       const hamburger = document.getElementById('hamburger');
       const navLinks  = document.getElementById('navLinks');
-      if (hamburger && navLinks) {
+      if (hamburger && navLinks && hamburger.classList.contains('open')) {
         hamburger.classList.remove('open');
         navLinks.classList.remove('open');
+        document.body.style.overflow = '';
       }
     }
   });
