@@ -1043,6 +1043,50 @@ function showNotification(msg, type = 'success') {
 })();
 
 /* ──────────────────────────────────────────────────────────────
+   16b. LIVE AGE TAG (updates when the date changes)
+──────────────────────────────────────────────────────────────── */
+(function initLiveAge() {
+  const textEl = document.getElementById('liveAgeText');
+  if (!textEl) return;
+
+  // September 18, 2005
+  const birth = new Date(2005, 8, 18, 0, 0, 0);
+
+  function calendarBreakdown(now) {
+    let years  = now.getFullYear() - birth.getFullYear();
+    let months = now.getMonth() - birth.getMonth();
+    let days   = now.getDate() - birth.getDate();
+    if (days < 0) {
+      months--;
+      days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+    }
+    if (months < 0) { years--; months += 12; }
+    return { years, months, days };
+  }
+
+  function update() {
+    const { years, months, days } = calendarBreakdown(new Date());
+    textEl.textContent = `${years}y ${months}m ${days}d`;
+  }
+
+  function msUntilNextMidnight() {
+    const now = new Date();
+    const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 1);
+    return next - now;
+  }
+
+  function scheduleNext() {
+    setTimeout(() => {
+      update();
+      scheduleNext();
+    }, msUntilNextMidnight());
+  }
+
+  update();
+  scheduleNext();
+})();
+
+/* ──────────────────────────────────────────────────────────────
    17. SCROLL PROGRESS BAR (holographic)
 ──────────────────────────────────────────────────────────────── */
 (function initScrollProgress() {
