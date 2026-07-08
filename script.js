@@ -50,8 +50,8 @@ document.addEventListener('mousemove', e => {
   Object.assign(cursor.style, {
     width: '10px', height: '10px',
     borderRadius: '50%',
-    background: 'var(--accent, #00c4ff)',
-    boxShadow: '0 0 18px 4px var(--accent, #00c4ff)',
+    background: 'var(--accent, #2da8d8)',
+    boxShadow: '0 0 18px 4px var(--accent, #2da8d8)',
     transition: 'none',
     pointerEvents: 'none',
     position: 'fixed',
@@ -63,7 +63,7 @@ document.addEventListener('mousemove', e => {
   Object.assign(follower.style, {
     width: '40px', height: '40px',
     borderRadius: '50%',
-    border: '1.5px solid rgba(0,196,255,0.5)',
+    border: '1.5px solid rgba(45,168,216,0.5)',
     background: 'transparent',
     backdropFilter: 'blur(2px)',
     transition: 'none',
@@ -395,11 +395,9 @@ document.addEventListener('mousemove', e => {
   style.textContent = `
     /* Holographic shimmer on hero name */
     @keyframes holoShift {
-      0%   { background-position: 0% 50%;   filter: hue-rotate(0deg)   brightness(1.1); }
-      25%  { background-position: 50% 100%; filter: hue-rotate(30deg)  brightness(1.3); }
-      50%  { background-position: 100% 50%; filter: hue-rotate(60deg)  brightness(1.15);}
-      75%  { background-position: 50% 0%;   filter: hue-rotate(20deg)  brightness(1.25);}
-      100% { background-position: 0% 50%;   filter: hue-rotate(0deg)   brightness(1.1); }
+      0%   { background-position: 0% 50%;   filter: brightness(1.05); }
+      50%  { background-position: 100% 50%; filter: brightness(1.2); }
+      100% { background-position: 0% 50%;   filter: brightness(1.05); }
     }
     @keyframes holoScan {
       0%   { transform: translateX(-120%) skewX(-20deg); }
@@ -413,14 +411,13 @@ document.addEventListener('mousemove', e => {
     .name-accent {
       background: linear-gradient(
         120deg,
-        #00c4ff 0%, #4fffb0 18%, #ff6bff 36%,
-        #ffd700 54%, #00c4ff 72%, #4fffb0 90%, #ff6bff 100%
+        #2da8d8 0%, #4fb894 50%, #2da8d8 100%
       ) !important;
       background-size: 300% 300% !important;
       -webkit-background-clip: text !important;
       background-clip: text !important;
       -webkit-text-fill-color: transparent !important;
-      animation: holoShift 5s ease infinite !important;
+      animation: holoShift 6s ease infinite !important;
       position: relative !important;
       display: inline-block !important;
     }
@@ -439,12 +436,12 @@ document.addEventListener('mousemove', e => {
 
     /* Hero tagline holographic separator */
     .tagline-sep {
-      background: linear-gradient(90deg, #00c4ff, #ff6bff, #4fffb0);
+      background: linear-gradient(90deg, #2da8d8, #4fb894);
       background-size: 200% auto;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: holoRainbow 2s linear infinite;
+      animation: holoRainbow 3s linear infinite;
       display: inline-block;
     }
 
@@ -457,8 +454,8 @@ document.addEventListener('mousemove', e => {
       background: linear-gradient(
         125deg,
         transparent 20%,
-        rgba(0,196,255,0.07) 40%,
-        rgba(255,107,255,0.07) 60%,
+        rgba(45,168,216,0.07) 40%,
+        rgba(79,184,148,0.07) 60%,
         transparent 80%
       );
       background-size: 300% 300%;
@@ -529,7 +526,7 @@ document.addEventListener('mousemove', e => {
       display: inline-block;
       width: 0;
       height: 2px;
-      background: linear-gradient(90deg, var(--accent, #00c4ff), transparent);
+      background: linear-gradient(90deg, var(--accent, #2da8d8), transparent);
       vertical-align: middle;
       margin-right: 0.5em;
       transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
@@ -541,7 +538,7 @@ document.addEventListener('mousemove', e => {
       position: absolute;
       left: 0; top: 0;
       width: 3px;
-      background: linear-gradient(180deg, var(--accent,#00c4ff), #4fffb0);
+      background: linear-gradient(180deg, var(--accent,#2da8d8), #4fb894);
       transition: height 0.1s;
       border-radius: 3px;
       pointer-events: none;
@@ -694,7 +691,7 @@ document.addEventListener('mousemove', e => {
 
       const liftZ    = isInside ? 8 : 0;
       const shadow   = isInside
-        ? `${-rotY * 1.2}px ${rotX * 1.2}px 40px rgba(0,0,0,0.5), 0 20px 60px rgba(0,196,255,0.12)`
+        ? `${-rotY * 1.2}px ${rotX * 1.2}px 40px rgba(0,0,0,0.5), 0 20px 60px rgba(45,168,216,0.12)`
         : '0 4px 20px rgba(0,0,0,0.3)';
 
       card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(${liftZ}px)`;
@@ -749,11 +746,11 @@ document.addEventListener('mousemove', e => {
     }
     .skill-bar-fill {
       background: linear-gradient(90deg,
-        #00c4ff 0%, #4fffb0 30%, #fff 50%, #4fffb0 70%, #00c4ff 100%
+        #2da8d8 0%, #4fb894 30%, #fff 50%, #4fb894 70%, #2da8d8 100%
       ) !important;
       background-size: 250% auto !important;
       animation: skillShimmer 3s linear infinite, skillLiquid 4s ease-in-out infinite !important;
-      box-shadow: 0 0 12px rgba(0,196,255,0.5) !important;
+      box-shadow: 0 0 12px rgba(45,168,216,0.5) !important;
     }
   `;
   document.head.appendChild(style);
@@ -858,10 +855,10 @@ function showNotification(msg, type = 'success') {
     alignItems:    'center',
     gap:           '0.6rem',
     background:    type === 'success'
-      ? 'linear-gradient(135deg, rgba(0,196,255,0.12), rgba(79,255,176,0.10))'
+      ? 'linear-gradient(135deg, rgba(45,168,216,0.12), rgba(79,184,148,0.10))'
       : 'linear-gradient(135deg, rgba(255,107,53,0.14), rgba(255,50,100,0.10))',
-    border:        `1px solid ${type === 'success' ? 'rgba(0,196,255,0.4)' : 'rgba(255,107,53,0.4)'}`,
-    color:         type === 'success' ? '#4fffb0' : '#ff6b35',
+    border:        `1px solid ${type === 'success' ? 'rgba(45,168,216,0.4)' : 'rgba(255,107,53,0.4)'}`,
+    color:         type === 'success' ? '#4fb894' : '#ff6b35',
     padding:       '0.9rem 1.4rem',
     borderRadius:  '12px',
     fontSize:      '0.88rem',
@@ -869,7 +866,7 @@ function showNotification(msg, type = 'success') {
     zIndex:        '99990',
     backdropFilter:'blur(20px)',
     boxShadow:     type === 'success'
-      ? '0 8px 40px rgba(0,196,255,0.25), inset 0 1px 0 rgba(255,255,255,0.1)'
+      ? '0 8px 40px rgba(45,168,216,0.25), inset 0 1px 0 rgba(255,255,255,0.1)'
       : '0 8px 40px rgba(255,107,53,0.2)',
     animation:     'toastIn 0.45s cubic-bezier(0.22,1,0.36,1) forwards',
   });
@@ -1093,11 +1090,11 @@ function showNotification(msg, type = 'success') {
   const bar = document.createElement('div');
   Object.assign(bar.style, {
     position:   'fixed', top: '0', left: '0', height: '3px',
-    background: 'linear-gradient(90deg, #00c4ff, #4fffb0, #ff6bff, #00c4ff)',
+    background: 'linear-gradient(90deg, #2da8d8, #4fb894, #2da8d8)',
     backgroundSize: '300% 100%',
     zIndex:     '99996', width: '0%',
     pointerEvents: 'none',
-    boxShadow: '0 0 12px rgba(0,196,255,0.7)',
+    boxShadow: '0 0 12px rgba(45,168,216,0.7)',
     animation: 'progressHolo 3s linear infinite',
     transition: 'width 0.08s',
   });
@@ -1126,7 +1123,7 @@ function showNotification(msg, type = 'success') {
     .typing-cursor::after {
       content: '|';
       animation: blink 1s step-end infinite;
-      color: var(--accent, #00c4ff);
+      color: var(--accent, #2da8d8);
       margin-left: 2px;
     }
     /* Stat hue cycle */
@@ -1189,7 +1186,7 @@ function showNotification(msg, type = 'success') {
     }
     .chip-1 {
       animation: chipFloat1 5s ease-in-out infinite;
-      box-shadow: 0 0 20px rgba(0,196,255,0.3), inset 0 1px 0 rgba(255,255,255,0.15) !important;
+      box-shadow: 0 0 20px rgba(45,168,216,0.3), inset 0 1px 0 rgba(255,255,255,0.15) !important;
     }
     .chip-2 {
       animation: chipFloat2 6s ease-in-out infinite 0.8s;
@@ -1197,7 +1194,7 @@ function showNotification(msg, type = 'success') {
     }
     .chip-3 {
       animation: chipFloat3 4.5s ease-in-out infinite 1.5s;
-      box-shadow: 0 0 20px rgba(79,255,176,0.3), inset 0 1px 0 rgba(255,255,255,0.15) !important;
+      box-shadow: 0 0 20px rgba(79,184,148,0.3), inset 0 1px 0 rgba(255,255,255,0.15) !important;
     }
 
     .fyp-card {
@@ -1213,15 +1210,15 @@ function showNotification(msg, type = 'success') {
 
     /* Badge heartbeat */
     @keyframes heartbeat {
-      0%,100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(79,255,176,0.6); }
-      40%     { transform: scale(1.45); box-shadow: 0 0 0 10px rgba(79,255,176,0); }
+      0%,100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(79,184,148,0.6); }
+      40%     { transform: scale(1.45); box-shadow: 0 0 0 10px rgba(79,184,148,0); }
     }
     .badge-dot { animation: heartbeat 2.2s ease infinite !important; }
 
     /* CGPA badge glow pulse */
     @keyframes cgpaPulse {
-      0%,100% { box-shadow: 0 0 0 0 rgba(0,196,255,0.5), 0 4px 20px rgba(0,0,0,0.2); }
-      50%     { box-shadow: 0 0 0 12px rgba(0,196,255,0), 0 8px 30px rgba(0,196,255,0.15); }
+      0%,100% { box-shadow: 0 0 0 0 rgba(45,168,216,0.5), 0 4px 20px rgba(0,0,0,0.2); }
+      50%     { box-shadow: 0 0 0 12px rgba(45,168,216,0), 0 8px 30px rgba(45,168,216,0.15); }
     }
     .cgpa-badge { animation: cgpaPulse 2.8s ease infinite !important; }
 
@@ -1232,7 +1229,7 @@ function showNotification(msg, type = 'success') {
       100% { background-position: 0%   50%; }
     }
     .exp-number {
-      background: linear-gradient(135deg, #00c4ff 0%, #a78bfa 40%, #f472b6 70%, #00c4ff 100%) !important;
+      background: linear-gradient(135deg, #2da8d8 0%, #4fb894 50%, #2da8d8 100%) !important;
       background-size: 300% auto !important;
       -webkit-background-clip: text !important;
       background-clip: text !important;
@@ -1250,7 +1247,7 @@ function showNotification(msg, type = 'success') {
       position: absolute;
       left: -100%; bottom: -2px;
       width: 100%; height: 2px;
-      background: linear-gradient(90deg, var(--accent,#00c4ff), #4fffb0);
+      background: linear-gradient(90deg, var(--accent,#2da8d8), #4fb894);
       transition: left 0.35s cubic-bezier(0.22,1,0.36,1);
     }
     .nav-link:hover::after,
@@ -1318,8 +1315,8 @@ function showNotification(msg, type = 'success') {
 
     /* ── 1. Card ambient breathe glow ── */
     @keyframes fypBreath {
-      0%,100% { box-shadow: 0 0 0 0 rgba(0,196,255,0), 0 4px 40px rgba(0,0,0,0.45); }
-      50%     { box-shadow: 0 0 60px 4px rgba(0,196,255,0.10), 0 8px 60px rgba(0,0,0,0.5); }
+      0%,100% { box-shadow: 0 0 0 0 rgba(45,168,216,0), 0 4px 40px rgba(0,0,0,0.45); }
+      50%     { box-shadow: 0 0 60px 4px rgba(45,168,216,0.10), 0 8px 60px rgba(0,0,0,0.5); }
     }
     .fyp-card { animation: fypBreath 5s ease-in-out infinite; }
 
@@ -1335,7 +1332,7 @@ function showNotification(msg, type = 'success') {
     .fyp-card:hover .fyp-corner,
     .fyp-card.fyp-in-view .fyp-corner { opacity: 1; }
     .fyp-corner svg line {
-      stroke: #00c4ff;
+      stroke: #2da8d8;
       stroke-width: 2;
       stroke-linecap: round;
       stroke-dasharray: 22;
@@ -1363,15 +1360,15 @@ function showNotification(msg, type = 'success') {
       height: 1px;
       background: linear-gradient(90deg,
         transparent 0%,
-        rgba(0,196,255,0.35) 20%,
-        rgba(79,255,176,0.5) 50%,
-        rgba(0,196,255,0.35) 80%,
+        rgba(45,168,216,0.35) 20%,
+        rgba(79,184,148,0.5) 50%,
+        rgba(45,168,216,0.35) 80%,
         transparent 100%
       );
       pointer-events: none;
       z-index: 1;
       animation: fypScan 7s cubic-bezier(0.4,0,0.6,1) infinite 1.5s;
-      box-shadow: 0 0 10px rgba(0,196,255,0.3);
+      box-shadow: 0 0 10px rgba(45,168,216,0.3);
     }
 
     /* ── 4. Bullet list stagger reveal ── */
@@ -1394,14 +1391,14 @@ function showNotification(msg, type = 'success') {
       transition: color 0.4s, transform 0.4s cubic-bezier(0.22,1,0.36,1);
     }
     .fyp-card.fyp-in-view .fyp-bullets li .fa-caret-right {
-      color: #00c4ff;
+      color: #2da8d8;
       transform: scale(1.25);
     }
 
     /* ── 5. Tech chip sequential glow ── */
     @keyframes chipGlow {
       0%, 100% { border-color: rgba(255,255,255,0.07); color: #8a9bc0; box-shadow: none; }
-      50%      { border-color: rgba(0,196,255,0.55);   color: #e4f6ff;  box-shadow: 0 0 12px rgba(0,196,255,0.25); }
+      50%      { border-color: rgba(45,168,216,0.55);   color: #e4f6ff;  box-shadow: 0 0 12px rgba(45,168,216,0.25); }
     }
     .fyp-tech-stack .tech-chip { animation: chipGlow 4s ease-in-out infinite; }
     .fyp-tech-stack .tech-chip:nth-child(1) { animation-delay: 0.0s; }
@@ -1440,7 +1437,7 @@ function showNotification(msg, type = 'success') {
       position: absolute;
       bottom: -2px; left: 0;
       width: 0; height: 1px;
-      background: #00c4ff;
+      background: #2da8d8;
       transition: width 1s cubic-bezier(0.22,1,0.36,1) 0.3s;
     }
     .fyp-card.fyp-in-view .fyp-period::after { width: 100%; }
@@ -1448,7 +1445,7 @@ function showNotification(msg, type = 'success') {
     /* ── 8. Title word-by-word shimmer on hover ── */
     @keyframes titleWordShimmer {
       0%,100% { color: var(--text-primary); }
-      50%     { color: #e8f9ff; text-shadow: 0 0 20px rgba(0,196,255,0.3); }
+      50%     { color: #e8f9ff; text-shadow: 0 0 20px rgba(45,168,216,0.3); }
     }
     .fyp-card:hover .fyp-title {
       animation: titleWordShimmer 3s ease-in-out infinite;
@@ -1466,7 +1463,7 @@ function showNotification(msg, type = 'success') {
       transform: translateY(-50%);
       width: 3px;
       height: 0;
-      background: linear-gradient(180deg, #00c4ff, #4fffb0);
+      background: linear-gradient(180deg, #2da8d8, #4fb894);
       border-radius: 3px;
       transition: height 0.7s cubic-bezier(0.22,1,0.36,1) 0.5s;
     }
@@ -1480,7 +1477,7 @@ function showNotification(msg, type = 'success') {
     }
     .fyp-card:hover .fyp-results img {
       transform: scale(1.04);
-      box-shadow: 0 12px 48px rgba(0,0,0,0.5), 0 0 24px rgba(0,196,255,0.15);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.5), 0 0 24px rgba(45,168,216,0.15);
     }
   `;
   document.head.appendChild(style);
@@ -1572,13 +1569,13 @@ function showNotification(msg, type = 'success') {
 ──────────────────────────────────────────────────────────────── */
 console.log(
   '%c👋 Hey there, fellow developer!',
-  'color:#00c4ff; font-family:monospace; font-size:16px; font-weight:bold;'
+  'color:#2da8d8; font-family:monospace; font-size:16px; font-weight:bold;'
 );
 console.log(
   '%cHasnain Haroon | Civil Engineering × AI\nhasnianharoon456@gmail.com',
-  'color:#4fffb0; font-family:monospace; font-size:12px;'
+  'color:#4fb894; font-family:monospace; font-size:12px;'
 );
 console.log(
   '%c✨ Powered by WebGL-like canvas, morphing blobs, liquid cursor trails & holographic effects',
-  'color:#ff6bff; font-family:monospace; font-size:11px;'
+  'color:#2da8d8; font-family:monospace; font-size:11px;'
 );
