@@ -14,6 +14,9 @@ const lerp  = (a, b, t) => a + (b - a) * t;
 const clamp = (v, mn, mx) => Math.max(mn, Math.min(mx, v));
 const rand  = (a, b) => a + Math.random() * (b - a);
 
+/* Respect OS-level reduced motion preference — skips heavy JS-driven loops */
+const PREFERS_REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 /* Easing functions */
 const ease = {
   outExpo:   t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
@@ -38,8 +41,9 @@ document.addEventListener('mousemove', e => {
    1. LIQUID CURSOR + TRAIL SYSTEM
 ──────────────────────────────────────────────────────────────── */
 (function initLiquidCursor() {
-  /* Skip cursor entirely on touch/mobile devices */
+  /* Skip cursor entirely on touch/mobile devices, or if reduced motion is preferred */
   if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+  if (PREFERS_REDUCED_MOTION) return;
 
   /* Replace the two static divs with a canvas-based liquid cursor */
   const cursor   = document.getElementById('cursor');
@@ -283,6 +287,9 @@ document.addEventListener('mousemove', e => {
    6. MORPHING SVG BLOB BACKGROUNDS on hero orbs
 ──────────────────────────────────────────────────────────────── */
 (function initMorphingBlobs() {
+  /* Skip the continuous canvas animation loop if reduced motion is preferred */
+  if (PREFERS_REDUCED_MOTION) return;
+
   /* We'll inject a canvas that renders morphing blobs behind the hero */
   const hero = document.getElementById('hero');
   if (!hero) return;
@@ -1521,14 +1528,18 @@ function showNotification(msg, type = 'success') {
 ──────────────────────────────────────────────────────────────── */
 (function initActiveNavScroll() {
   const links    = document.querySelectorAll('.nav-link');
+  const dots     = document.querySelectorAll('.side-dot');
   const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
 
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         links.forEach(l => l.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
         const a = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+        const d = document.querySelector(`.side-dot[href="#${e.target.id}"]`);
         if (a) a.classList.add('active');
+        if (d) d.classList.add('active');
       }
     });
   }, { threshold: 0.35 });
@@ -1554,7 +1565,71 @@ function showNotification(msg, type = 'success') {
 })();
 
 /* ──────────────────────────────────────────────────────────────
-   22. YEAR IN FOOTER
+   22. RIPPLE CLICK EFFECT on primary buttons/links
+──────────────────────────────────────────────────────────────── */
+(function initRipple() {
+  if (PREFERS_REDUCED_MOTION) return;
+
+  const selector = '.btn-primary, .btn-ghost, .btn-CV, .btn-demo-link, .theme-toggle, .project-report-banner';
+
+  document.querySelectorAll(selector).forEach(el => {
+    el.classList.add('ripple-host');
+    el.addEventListener('click', e => {
+      const r = el.getBoundingClientRect();
+      const size = Math.max(r.width, r.height) * 1.4;
+      const wave = document.createElement('span');
+      wave.className = 'ripple-wave';
+      wave.style.width  = wave.style.height = size + 'px';
+      wave.style.left = (e.clientX - r.left - size / 2) + 'px';
+      wave.style.top  = (e.clientY - r.top  - size / 2) + 'px';
+      el.appendChild(wave);
+      wave.addEventListener('animationend', () => wave.remove());
+    });
+  });
+})();
+
+/* ──────────────────────────────────────────────────────────────
+   23. THEME TOGGLE (light / dark)
+──────────────────────────────────────────────────────────────── */
+(function initThemeToggle() {
+  const toggle = document.getElementById('themeToggle');
+  if (!toggle) return;
+
+  const root = document.documentElement;
+
+  function currentTheme() {
+    return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  }
+
+  function applyLabel(theme) {
+    toggle.setAttribute(
+      'aria-label',
+      theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'
+    );
+  }
+
+  applyLabel(currentTheme());
+
+  toggle.addEventListener('click', () => {
+    const next = currentTheme() === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    applyLabel(next);
+  });
+
+  /* Follow system preference changes if the user hasn't explicitly chosen */
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+      if (localStorage.getItem('theme')) return; // explicit choice wins
+      const theme = e.matches ? 'light' : 'dark';
+      root.setAttribute('data-theme', theme);
+      applyLabel(theme);
+    });
+  }
+})();
+
+/* ──────────────────────────────────────────────────────────────
+   24. YEAR IN FOOTER
 ──────────────────────────────────────────────────────────────── */
 (function initYear() {
   const copyEl = document.querySelector('.footer-copy');
@@ -1565,7 +1640,7 @@ function showNotification(msg, type = 'success') {
 })();
 
 /* ──────────────────────────────────────────────────────────────
-   23. CONSOLE EASTER EGG
+   25. CONSOLE EASTER EGG
 ──────────────────────────────────────────────────────────────── */
 console.log(
   '%c👋 Hey there, fellow developer!',
@@ -1579,3 +1654,261 @@ console.log(
   '%c✨ Powered by WebGL-like canvas, morphing blobs, liquid cursor trails & holographic effects',
   'color:#2da8d8; font-family:monospace; font-size:11px;'
 );
+
+/* ──────────────────────────────────────────────────────────────
+   26. PROJECT FILTER CHIPS  (with FLIP reflow animation)
+──────────────────────────────────────────────────────────────── */
+(function initProjectFilters() {
+  const chips = document.querySelectorAll('.filter-chip');
+  const grid  = document.querySelector('.projects-grid');
+  if (!chips.length || !grid) return;
+  const cards = [...grid.querySelectorAll('.project-card')];
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const filter = chip.dataset.filter;
+      if (chip.classList.contains('active')) return;
+
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+
+      // FLIP: record first positions of currently visible cards
+      const first = new Map();
+      cards.forEach(card => {
+        if (!card.classList.contains('filter-hidden')) {
+          first.set(card, card.getBoundingClientRect());
+        }
+      });
+
+      cards.forEach(card => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        if (match) {
+          card.classList.remove('filter-hidden');
+          // allow layout to register before removing filtered-out for fade-in
+          requestAnimationFrame(() => card.classList.remove('filtered-out'));
+        } else {
+          card.classList.add('filtered-out');
+        }
+      });
+
+      // After the fade-out transition, hide non-matching cards from layout
+      setTimeout(() => {
+        cards.forEach(card => {
+          const match = filter === 'all' || card.dataset.category === filter;
+          if (!match) card.classList.add('filter-hidden');
+        });
+
+        // FLIP: invert + play for cards that shifted position
+        cards.forEach(card => {
+          if (card.classList.contains('filter-hidden')) return;
+          const before = first.get(card);
+          if (!before) return;
+          const after = card.getBoundingClientRect();
+          const dx = before.left - after.left;
+          const dy = before.top  - after.top;
+          if (!dx && !dy) return;
+          card.style.transition = 'none';
+          card.style.transform  = `translate(${dx}px, ${dy}px)`;
+          requestAnimationFrame(() => {
+            card.style.transition = 'transform 0.45s cubic-bezier(0.22,1,0.36,1)';
+            card.style.transform  = '';
+          });
+        });
+      }, 260);
+    });
+  });
+})();
+
+/* ──────────────────────────────────────────────────────────────
+   27. CERTIFICATE FLIP CARDS
+──────────────────────────────────────────────────────────────── */
+(function initCertFlip() {
+  document.querySelectorAll('.cert-card').forEach(card => {
+    const img  = card.querySelector('.cert-preview');
+    const body = card.querySelector('.cert-body');
+    const badge = card.querySelector('.cert-badge');
+    if (!img || !body) return;
+
+    const flip  = document.createElement('div');
+    flip.className = 'cert-flip';
+    const inner = document.createElement('div');
+    inner.className = 'cert-flip-inner';
+    const front = document.createElement('div');
+    front.className = 'cert-flip-front';
+    const back  = document.createElement('div');
+    back.className = 'cert-flip-back';
+
+    front.appendChild(img);
+    back.appendChild(body);
+    if (badge) back.appendChild(badge);
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    flip.appendChild(inner);
+    card.appendChild(flip);
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'cert-flip-btn';
+    btn.setAttribute('aria-label', 'Flip to see certificate details');
+    btn.innerHTML = '<i class="fas fa-rotate"></i>';
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      card.classList.toggle('cert-flipped');
+    });
+    card.appendChild(btn);
+
+    function sizeFlip() {
+      if (!img.naturalWidth || !img.naturalHeight) return;
+      const ratio = img.naturalHeight / img.naturalWidth;
+      const width = flip.getBoundingClientRect().width || card.getBoundingClientRect().width;
+      if (!width) return;
+      flip.style.height = Math.max(160, Math.min(560, Math.round(width * ratio))) + 'px';
+    }
+    if (img.complete) sizeFlip();
+    else img.addEventListener('load', sizeFlip);
+    window.addEventListener('resize', sizeFlip, { passive: true });
+    // Fonts/layout can shift card width slightly after initial paint — re-check shortly after load
+    window.addEventListener('load', () => setTimeout(sizeFlip, 150));
+  });
+})();
+
+/* ──────────────────────────────────────────────────────────────
+   28. SKILL PROFICIENCY DOT METER (fill on scroll)
+──────────────────────────────────────────────────────────────── */
+(function initSkillProfMeter() {
+  const LEVELS = { 'badge-beginner': 1, 'badge-intermediate': 2, 'badge-advanced': 3, 'badge-expert': 3 };
+
+  const items = document.querySelectorAll('.skill-prof-item');
+  if (!items.length) return;
+
+  items.forEach(item => {
+    const badge = item.querySelector('.skill-prof-badge');
+    if (!badge) return;
+    const levelClass = [...badge.classList].find(c => LEVELS[c]);
+    const level = levelClass ? LEVELS[levelClass] : 1;
+
+    const meter = document.createElement('span');
+    meter.className = 'skill-prof-meter';
+    for (let i = 0; i < 3; i++) {
+      const dot = document.createElement('span');
+      dot.className = 'dot' + (i < level ? ' on' : '');
+      meter.appendChild(dot);
+    }
+    badge.insertAdjacentElement('afterend', meter);
+  });
+
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const list = entry.target.querySelectorAll('.skill-prof-item');
+      list.forEach((item, i) => {
+        setTimeout(() => item.classList.add('meter-fill'), i * 90);
+      });
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.25 });
+
+  document.querySelectorAll('.skill-prof-list').forEach(list => io.observe(list));
+})();
+
+/* ──────────────────────────────────────────────────────────────
+   29. TIMELINE SCRUBBING (active card + scroll-linked progress line)
+──────────────────────────────────────────────────────────────── */
+(function initTimelineScrub() {
+  const timeline = document.querySelector('.timeline');
+  if (!timeline) return;
+
+  const progress = document.createElement('div');
+  progress.className = 'timeline-progress-line';
+  timeline.appendChild(progress);
+
+  const items = [...timeline.querySelectorAll('.timeline-item')];
+
+  function update() {
+    const rect = timeline.getBoundingClientRect();
+    const viewportCenter = window.innerHeight * 0.5;
+    const scrolled = viewportCenter - rect.top;
+    const pct = Math.max(0, Math.min(1, scrolled / rect.height));
+    progress.style.height = (pct * 100) + '%';
+
+    items.forEach(item => {
+      const icon = item.querySelector('.timeline-icon');
+      const card = item.querySelector('.timeline-card');
+      const iRect = item.getBoundingClientRect();
+      const isActive = iRect.top < viewportCenter && iRect.bottom > viewportCenter;
+      if (icon) icon.classList.toggle('tl-active', isActive);
+      if (card) card.classList.toggle('tl-active', isActive);
+    });
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => { update(); ticking = false; });
+  }, { passive: true });
+
+  window.addEventListener('resize', update, { passive: true });
+  update();
+})();
+
+/* ──────────────────────────────────────────────────────────────
+   30. CV PREVIEW MODAL
+──────────────────────────────────────────────────────────────── */
+(function initCvModal() {
+  const modal   = document.getElementById('cvModal');
+  const trigger1 = document.getElementById('cvPreviewTrigger1');
+  const trigger2 = document.getElementById('cvPreviewTrigger2');
+  if (!modal) return;
+
+  function open(e) {
+    if (e) e.preventDefault();
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  [trigger1, trigger2].forEach(t => t && t.addEventListener('click', open));
+  modal.querySelectorAll('[data-cv-close]').forEach(el => el.addEventListener('click', close));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) close();
+  });
+})();
+
+/* ──────────────────────────────────────────────────────────────
+   31. COPY-TO-CLIPBOARD (contact info)
+──────────────────────────────────────────────────────────────── */
+(function initCopyToClipboard() {
+  document.querySelectorAll('.cli-copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (err) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      btn.classList.add('copied');
+      const icon = btn.querySelector('i');
+      icon.className = 'fas fa-check';
+      showNotification('Copied to clipboard', 'success');
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        icon.className = 'fas fa-copy';
+      }, 1800);
+    });
+  });
+})();

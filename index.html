@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Theme init — runs before CSS paints to prevent a flash of the wrong theme -->
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Hasnain Haroon – Civil & Structural Engineer and AI Researcher specializing in deep learning-based structural health monitoring, crack detection, and computer vision." />
@@ -77,13 +85,29 @@
       <li><a href="#contact" class="nav-link">Contact</a></li>
     </ul>
     <div class="nav-actions">
-      <a href="Hasnain_Haroon_CV.pdf" download class="btn-CV" aria-label="Download CV">
+      <button class="theme-toggle" id="themeToggle" aria-label="Switch to light mode" title="Toggle light / dark mode">
+        <i class="fas fa-sun theme-icon theme-icon-sun"></i>
+        <i class="fas fa-moon theme-icon theme-icon-moon"></i>
+      </button>
+      <a href="Hasnain_Haroon_CV.pdf" download="Hasnain_Haroon_CV.pdf" class="btn-CV" id="cvPreviewTrigger1" aria-label="Preview or download CV">
         <i class="fas fa-download"></i> CV
       </a>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
     </div>
+  </nav>
+
+  <!-- ── SIDE SCROLL-SPY NAVIGATION ── -->
+  <nav class="side-dots" id="sideDots" aria-label="Jump to section">
+    <a href="#hero" class="side-dot" data-label="Home" aria-label="Home"><span></span></a>
+    <a href="#about" class="side-dot" data-label="About" aria-label="About"><span></span></a>
+    <a href="#education" class="side-dot" data-label="Education" aria-label="Education"><span></span></a>
+    <a href="#skills" class="side-dot" data-label="Skills" aria-label="Skills"><span></span></a>
+    <a href="#projects" class="side-dot" data-label="Projects" aria-label="Projects"><span></span></a>
+    <a href="#experience" class="side-dot" data-label="Experience" aria-label="Experience"><span></span></a>
+    <a href="#certifications" class="side-dot" data-label="Certifications" aria-label="Certifications"><span></span></a>
+    <a href="#contact" class="side-dot" data-label="Contact" aria-label="Contact"><span></span></a>
   </nav>
 
   <!-- ── HERO ── -->
@@ -94,7 +118,7 @@
     <div class="hero-orb hero-orb-3"></div>
 
     <div class="hero-content">
-      <div class="hero-badge">
+      <div class="hero-badge reveal-up" style="--d:0s">
         <span class="badge-dot"></span>
         Available for Job & Research Opportunities
       </div>
@@ -152,13 +176,13 @@
           <span></span>
         </div>
       </div>
-      <div class="hero-chip chip-1">
+      <div class="hero-chip chip-1 reveal-chip" style="--d:1.0s">
         <i class="fas fa-brain"></i> Deep Learning
       </div>
-      <div class="hero-chip chip-2">
+      <div class="hero-chip chip-2 reveal-chip" style="--d:1.2s">
         <i class="fas fa-building"></i> Structural Engineering
       </div>
-      <div class="hero-chip chip-3">
+      <div class="hero-chip chip-3 reveal-chip" style="--d:1.4s">
         <i class="fas fa-eye"></i> Computer Vision
       </div>
     </div>
@@ -525,10 +549,20 @@
         </div>
       </div>
 
+      <!-- PROJECT FILTER CHIPS -->
+      <div class="project-filters" role="tablist" aria-label="Filter projects by category">
+        <button type="button" class="filter-chip active" data-filter="all">All</button>
+        <button type="button" class="filter-chip" data-filter="structural">Structural</button>
+        <button type="button" class="filter-chip" data-filter="architectural">Architectural</button>
+        <button type="button" class="filter-chip" data-filter="water">Water &amp; Environmental</button>
+        <button type="button" class="filter-chip" data-filter="construction">Construction Mgmt</button>
+        <button type="button" class="filter-chip" data-filter="ai">AI/ML</button>
+      </div>
+
       <!-- OTHER PROJECTS GRID -->
       <div class="projects-grid">
 
-        <div class="project-card fade-in">
+        <div class="project-card fade-in" data-category="structural">
           <div class="project-card-top">
             <div class="project-icon"><i class="fas fa-building"></i></div>
             <div class="project-links"></div>
@@ -543,12 +577,12 @@
           </div>
         </div>
 
-        <div class="project-card fade-in project-card-report">
+        <div class="project-card fade-in project-card-report" data-category="construction">
           <div class="project-card-top">
             <div class="project-icon project-icon-report"><i class="fas fa-hard-hat"></i></div>
             <div class="project-links">
               <a href="PPM_REPORT.pdf" target="_blank" rel="noopener" class="project-pdf-btn" title="View Report">
-                <svg class="icon-pdf" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>
+                <svg class="icon-pdf" viewBox="0 0 32 32" width="1.7em" height="1.7em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg>
               </a>
             </div>
           </div>
@@ -561,7 +595,7 @@
           <!-- PDF Report Banner -->
           <a href="PPM_REPORT.pdf" target="_blank" rel="noopener" class="project-report-banner">
             <div class="prb-icon-wrap">
-              <svg class="icon-pdf" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>
+              <svg class="icon-pdf" viewBox="0 0 32 32" width="1.7em" height="1.7em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg>
             </div>
             <div class="prb-text">
               <span class="prb-label">Full Report Available</span>
@@ -572,12 +606,12 @@
           </a>
         </div>
 
-        <div class="project-card fade-in project-card-report">
+        <div class="project-card fade-in project-card-report" data-category="architectural">
           <div class="project-card-top">
             <div class="project-icon project-icon-report"><i class="fas fa-home"></i></div>
             <div class="project-links">
               <a href="Residential_House_Report.pdf" target="_blank" rel="noopener" class="project-pdf-btn" title="View Report">
-                <svg class="icon-pdf" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>
+                <svg class="icon-pdf" viewBox="0 0 32 32" width="1.7em" height="1.7em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg>
               </a>
             </div>
           </div>
@@ -588,7 +622,7 @@
           </div>
           <a href="Residential_House_Report.pdf" target="_blank" rel="noopener" class="project-report-banner">
             <div class="prb-icon-wrap">
-              <svg class="icon-pdf" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>
+              <svg class="icon-pdf" viewBox="0 0 32 32" width="1.7em" height="1.7em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg>
             </div>
             <div class="prb-text">
               <span class="prb-label">Full Report Available</span>
@@ -599,12 +633,12 @@
           </a>
         </div>
 
-        <div class="project-card fade-in project-card-report">
+        <div class="project-card fade-in project-card-report" data-category="architectural">
           <div class="project-card-top">
             <div class="project-icon project-icon-report"><i class="fas fa-cube"></i></div>
             <div class="project-links">
               <a href="3d_House.pdf" target="_blank" rel="noopener" class="project-pdf-btn" title="View Report">
-                <svg class="icon-pdf" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>
+                <svg class="icon-pdf" viewBox="0 0 32 32" width="1.7em" height="1.7em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg>
               </a>
             </div>
           </div>
@@ -615,7 +649,7 @@
           </div>
           <a href="3d_House.pdf" target="_blank" rel="noopener" class="project-report-banner">
             <div class="prb-icon-wrap">
-              <svg class="icon-pdf" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>
+              <svg class="icon-pdf" viewBox="0 0 32 32" width="1.7em" height="1.7em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg>
             </div>
             <div class="prb-text">
               <span class="prb-label">Full Report Available</span>
@@ -626,12 +660,12 @@
           </a>
         </div>
 
-        <div class="project-card fade-in project-card-report">
+        <div class="project-card fade-in project-card-report" data-category="structural">
           <div class="project-card-top">
             <div class="project-icon project-icon-report"><i class="fas fa-building"></i></div>
             <div class="project-links">
               <a href="RCD.pdf" target="_blank" rel="noopener" class="project-pdf-btn" title="View Report">
-                <svg class="icon-pdf" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>
+                <svg class="icon-pdf" viewBox="0 0 32 32" width="1.7em" height="1.7em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg>
               </a>
             </div>
           </div>
@@ -642,7 +676,7 @@
           </div>
           <a href="RCD.pdf" target="_blank" rel="noopener" class="project-report-banner">
             <div class="prb-icon-wrap">
-              <svg class="icon-pdf" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>
+              <svg class="icon-pdf" viewBox="0 0 32 32" width="1.7em" height="1.7em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg>
             </div>
             <div class="prb-text">
               <span class="prb-label">Full Report Available</span>
@@ -653,12 +687,12 @@
           </a>
         </div>
 
-        <div class="project-card fade-in project-card-report">
+        <div class="project-card fade-in project-card-report" data-category="water">
           <div class="project-card-top">
             <div class="project-icon project-icon-report"><i class="fas fa-tint"></i></div>
             <div class="project-links">
               <a href="WATER_SUPPLY.pdf" target="_blank" rel="noopener" class="project-pdf-btn" title="View Report">
-                <svg class="icon-pdf" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>
+                <svg class="icon-pdf" viewBox="0 0 32 32" width="1.7em" height="1.7em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg>
               </a>
             </div>
           </div>
@@ -669,7 +703,7 @@
           </div>
           <a href="WATER_SUPPLY.pdf" target="_blank" rel="noopener" class="project-report-banner">
             <div class="prb-icon-wrap">
-              <svg class="icon-pdf" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>
+              <svg class="icon-pdf" viewBox="0 0 32 32" width="1.7em" height="1.7em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg>
             </div>
             <div class="prb-text">
               <span class="prb-label">Full Report Available</span>
@@ -680,7 +714,7 @@
           </a>
         </div>
 
-        <div class="project-card fade-in">
+        <div class="project-card fade-in" data-category="ai">
           <div class="project-card-top">
             <div class="project-icon"><i class="fas fa-eye"></i></div>
             <div class="project-links"></div>
@@ -695,7 +729,7 @@
           </div>
         </div>
 
-        <div class="project-card fade-in">
+        <div class="project-card fade-in" data-category="structural">
           <div class="project-card-top">
             <div class="project-icon"><i class="fas fa-drafting-compass"></i></div>
             <div class="project-links"></div>
@@ -710,12 +744,12 @@
           </div>
         </div>
 
-        <div class="project-card fade-in project-card-report">
+        <div class="project-card fade-in project-card-report" data-category="water">
           <div class="project-card-top">
             <div class="project-icon project-icon-report"><i class="fas fa-water"></i></div>
             <div class="project-links">
               <a href="WASTE_WATER.pdf" target="_blank" rel="noopener" class="project-pdf-btn" title="View Report">
-                <svg class="icon-pdf" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>
+                <svg class="icon-pdf" viewBox="0 0 32 32" width="1.7em" height="1.7em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg>
               </a>
             </div>
           </div>
@@ -726,7 +760,7 @@
           </div>
           <a href="WASTE_WATER.pdf" target="_blank" rel="noopener" class="project-report-banner">
             <div class="prb-icon-wrap">
-              <svg class="icon-pdf" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>
+              <svg class="icon-pdf" viewBox="0 0 32 32" width="1.7em" height="1.7em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg>
             </div>
             <div class="prb-text">
               <span class="prb-label">Full Report Available</span>
@@ -737,7 +771,7 @@
           </a>
         </div>
 
-        <div class="project-card fade-in">
+        <div class="project-card fade-in" data-category="ai">
           <div class="project-card-top">
             <div class="project-icon"><i class="fas fa-mobile-alt"></i></div>
             <div class="project-links"></div>
@@ -752,12 +786,12 @@
           </div>
         </div>
 
-        <div class="project-card fade-in project-card-report">
+        <div class="project-card fade-in project-card-report" data-category="construction">
           <div class="project-card-top">
             <div class="project-icon project-icon-report"><i class="fas fa-calculator"></i></div>
             <div class="project-links">
               <a href="Quantity_estimation.pdf" target="_blank" rel="noopener" class="project-pdf-btn" title="View Report">
-                <svg class="icon-pdf" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>
+                <svg class="icon-pdf" viewBox="0 0 32 32" width="1.7em" height="1.7em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg>
               </a>
             </div>
           </div>
@@ -768,7 +802,7 @@
           </div>
           <a href="Quantity_estimation.pdf" target="_blank" rel="noopener" class="project-report-banner">
             <div class="prb-icon-wrap">
-              <svg class="icon-pdf" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>
+              <svg class="icon-pdf" viewBox="0 0 32 32" width="1.7em" height="1.7em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg>
             </div>
             <div class="prb-text">
               <span class="prb-label">Full Report Available</span>
@@ -884,7 +918,7 @@
       <p class="cert-issuer"><i class="fas fa-university"></i> COMSATS University Islamabad, Wah Campus</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> June 03, 2026</p>
     </div>
-    <a href="cert_award.jpeg" target="_blank" class="cert-badge cert-badge-award">
+    <a href="cert_award.jpeg" target="_blank" rel="noopener" class="cert-badge cert-badge-award">
       <i class="fas fa-trophy"></i> View
     </a>
   </div>
@@ -898,7 +932,7 @@
       <p class="cert-issuer"><i class="fas fa-heart"></i> Pakistan Red Crescent Society</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> May 23, 2023</p>
     </div>
-    <a href="cert1.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert1.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
   <!-- CERTIFICATE 02 — Civil Nexus 2025 -->
@@ -910,7 +944,7 @@
       <p class="cert-issuer"><i class="fas fa-university"></i> ASCE, University of Wah</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> April 10, 2025</p>
     </div>
-    <a href="cert2.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert2.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
   <!-- CERTIFICATE 03 — Community Services (Orphans) -->
@@ -922,7 +956,7 @@
       <p class="cert-issuer"><i class="fas fa-university"></i> Dept. of Civil Engineering, CUI Wah Campus</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> Fall 2024</p>
     </div>
-    <a href="cert3.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert3.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
   <!-- CERTIFICATE 04 — Certificate of Appreciation (Organize, Spring-24) -->
@@ -934,7 +968,7 @@
       <p class="cert-issuer"><i class="fas fa-university"></i> Dept. of Civil Engineering, CUI Wah Campus</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> Spring 2024</p>
     </div>
-    <a href="cert4.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert4.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
   <!-- CERTIFICATE 05 — Dengue & Malaria Awareness Seminar -->
@@ -946,7 +980,7 @@
       <p class="cert-issuer"><i class="fas fa-university"></i> Community Services Society, CUI Wah Campus</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> 2024</p>
     </div>
-    <a href="cert5.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert5.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
   <!-- CERTIFICATE 06 — Student Week -->
@@ -958,7 +992,7 @@
       <p class="cert-issuer"><i class="fas fa-university"></i> COMSATS University Islamabad, Wah Campus</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> CUI Wah Campus</p>
     </div>
-    <a href="cert6.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert6.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
   <!-- CERTIFICATE 07 — Truss Bridge Competition -->
@@ -970,7 +1004,7 @@
       <p class="cert-issuer"><i class="fas fa-university"></i> ICE CUI Wah, CUI Wah Campus</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> December 15, 2022</p>
     </div>
-    <a href="cert7.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert7.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
   <!-- CERTIFICATE 08 — UNESCO Workshop on Introduction to R -->
@@ -982,7 +1016,7 @@
       <p class="cert-issuer"><i class="fas fa-globe"></i> UNESCO Chair, COMSATS University Islamabad</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> November 23, 2023</p>
     </div>
-    <a href="cert8.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert8.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
   <!-- CERTIFICATE 09 — PEF Webinar: AI/ML in Civil Engineering -->
@@ -994,7 +1028,7 @@
       <p class="cert-issuer"><i class="fas fa-users"></i> Pakistan Engineers Forum (PEF – KP/GB)</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> September 12, 2024</p>
     </div>
-    <a href="cert9.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert9.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
   <!-- CERTIFICATE 10 — ICE CUI Treasurer -->
@@ -1006,7 +1040,7 @@
       <p class="cert-issuer"><i class="fas fa-university"></i> Institution of Civil Engineers (ICE), CUI Wah</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> 2025 – 2026</p>
     </div>
-    <a href="cert10.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert10.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
   <!-- CERTIFICATE 11 — CPD Seminar: Finite Element Method -->
@@ -1018,7 +1052,7 @@
       <p class="cert-issuer"><i class="fas fa-university"></i> Civil Engineering Dept., CUI Wah Campus</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> May 15, 2025</p>
     </div>
-    <a href="cert11.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert11.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
   <!-- CERTIFICATE 12 — CPD Seminar: Asphalt Rut Depth -->
@@ -1030,7 +1064,7 @@
       <p class="cert-issuer"><i class="fas fa-university"></i> Civil Engineering Dept., CUI Wah Campus</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> December 12, 2024</p>
     </div>
-    <a href="cert12.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert12.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
   <!-- CERTIFICATE 13 — CPD Seminar: Restoration of National Heritages -->
@@ -1042,7 +1076,7 @@
       <p class="cert-issuer"><i class="fas fa-university"></i> Civil Engineering Dept., CUI Wah Campus</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> February 20, 2025</p>
     </div>
-    <a href="cert13.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert13.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
   <!-- CERTIFICATE 14 — CPD Seminar: Non-Destructive Test Methods -->
@@ -1054,7 +1088,7 @@
       <p class="cert-issuer"><i class="fas fa-university"></i> Civil Engineering Dept., CUI Wah Campus</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> May 30, 2024</p>
     </div>
-    <a href="cert14.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert14.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
   <!-- CERTIFICATE 15 — CPD Seminar: Integrating Technologies in Civil Engineering -->
@@ -1066,7 +1100,7 @@
       <p class="cert-issuer"><i class="fas fa-university"></i> Civil Engineering Dept., CUI Wah Campus</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> September 27, 2023</p>
     </div>
-    <a href="cert15.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert15.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
   <!-- CERTIFICATE 16 — CPD Seminar: Impact of Machine Learning in Civil Engineering -->
@@ -1078,7 +1112,7 @@
       <p class="cert-issuer"><i class="fas fa-university"></i> Civil Engineering Dept., CUI Wah Campus</p>
       <p class="cert-date"><i class="fas fa-calendar-alt"></i> October 13, 2022</p>
     </div>
-    <a href="cert16.jpg" target="_blank" class="cert-badge">View</a>
+    <a href="cert16.jpg" target="_blank" rel="noopener" class="cert-badge">View</a>
   </div>
 
 </div>
@@ -1099,29 +1133,39 @@
         <div class="contact-info fade-in">
           <h3 class="contact-info-title">Reach Out Directly</h3>
           <div class="contact-links">
-            <a href="mailto:hasnainharoon456@gmail.com" class="contact-link-item">
-              <div class="cli-icon"><i class="fas fa-envelope"></i></div>
-              <div>
-                <p class="cli-label">Email</p>
-                <p class="cli-value">hasnainharoon456@gmail.com</p>
-              </div>
-              <i class="fas fa-arrow-right cli-arrow"></i>
-            </a>
+            <div class="contact-link-row">
+              <a href="mailto:hasnainharoon456@gmail.com" class="contact-link-item">
+                <div class="cli-icon"><i class="fas fa-envelope"></i></div>
+                <div>
+                  <p class="cli-label">Email</p>
+                  <p class="cli-value">hasnainharoon456@gmail.com</p>
+                </div>
+                <i class="fas fa-arrow-right cli-arrow"></i>
+              </a>
+              <button type="button" class="cli-copy-btn" data-copy="hasnainharoon456@gmail.com" aria-label="Copy email address" title="Copy email">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
 
-            <a href="tel:+923455039097" class="contact-link-item">
-              <div class="cli-icon phone"><i class="fas fa-phone"></i></div>
-              <div>
-                <p class="cli-label">Phone</p>
-                <p class="cli-value">+92 345 5039097</p>
-              </div>
-              <i class="fas fa-arrow-right cli-arrow"></i>
-            </a>
+            <div class="contact-link-row">
+              <a href="tel:+923455039097" class="contact-link-item">
+                <div class="cli-icon phone"><i class="fas fa-phone"></i></div>
+                <div>
+                  <p class="cli-label">Phone</p>
+                  <p class="cli-value">+92 345 5039097</p>
+                </div>
+                <i class="fas fa-arrow-right cli-arrow"></i>
+              </a>
+              <button type="button" class="cli-copy-btn" data-copy="+923455039097" aria-label="Copy phone number" title="Copy phone number">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
           </div>
 
           <div class="CV-cta fade-in">
             <p>Want a full overview of my background?</p>
-            <a href="Hasnain_Haroon_CV.pdf" download class="btn-primary">
-              <svg class="icon-pdf" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg> Download CV (PDF)
+            <a href="Hasnain_Haroon_CV.pdf" download="Hasnain_Haroon_CV.pdf" class="btn-primary" id="cvPreviewTrigger2">
+              <svg class="icon-pdf" viewBox="0 0 32 32" width="1.7em" height="1.7em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg> Download CV (PDF)
             </a>
           </div>
         </div>
@@ -1170,6 +1214,35 @@
       </div>
     </div>
   </footer>
+
+  <!-- ── CV PREVIEW MODAL ── -->
+  <div class="cv-modal" id="cvModal" aria-hidden="true">
+    <div class="cv-modal-backdrop" data-cv-close></div>
+    <div class="cv-modal-panel" role="dialog" aria-modal="true" aria-label="CV Preview">
+      <div class="cv-modal-header">
+        <span class="cv-modal-title"><svg class="icon-pdf" viewBox="0 0 32 32" width="1.4em" height="1.4em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg> <span>Hasnain Haroon — CV</span></span>
+        <div class="cv-modal-actions">
+          <a href="Hasnain_Haroon_CV.pdf" download="Hasnain_Haroon_CV.pdf" class="btn-primary cv-modal-download">
+            <i class="fas fa-download"></i> Download
+          </a>
+          <button type="button" class="cv-modal-close" data-cv-close aria-label="Close preview">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="cv-modal-body">
+        <object data="Hasnain_Haroon_CV.pdf" type="application/pdf">
+          <div class="cv-modal-fallback">
+            <svg class="icon-pdf" viewBox="0 0 32 32" width="2.6em" height="2.6em" aria-hidden="true" focusable="false"><path fill="currentColor" fill-opacity="0.85" d="M8 2.5C6.6 2.5 5.5 3.6 5.5 5v22c0 1.4 1.1 2.5 2.5 2.5h16c1.4 0 2.5-1.1 2.5-2.5V11L18 2.5H8z"/><path fill="currentColor" fill-opacity="0.45" d="M18 2.5V9c0 1.1.9 2 2 2h6.5L18 2.5z"/><rect x="2.5" y="16.5" width="20" height="11.5" rx="1.6" fill="#e5252a"/><text x="12.5" y="25.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="900" letter-spacing="-0.4" fill="#fff" text-anchor="middle">PDF</text></svg>
+            <p>Your browser can't preview PDFs inline.</p>
+            <a href="Hasnain_Haroon_CV.pdf" download="Hasnain_Haroon_CV.pdf" class="btn-primary">
+              <i class="fas fa-download"></i> Download the CV
+            </a>
+          </div>
+        </object>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 
